@@ -1,34 +1,26 @@
 import { productService } from "@/lib/services/product-service";
-import { categoryService } from "@/lib/services/category-service";
 import { Hero } from "@/components/home/Hero";
-import { CategoriesSection } from "@/components/home/CategoriesSection";
-import { NewArrivalsSection } from "@/components/home/NewArrivalsSection";
-import { EditorialBanner } from "@/components/home/EditorialBanner";
-import { SecondLifeSection } from "@/components/home/SecondLifeSection";
-import { FeaturedSection } from "@/components/home/FeaturedSection";
-import { LastChanceSection } from "@/components/home/LastChanceSection";
+import { SubNav } from "@/components/layout/SubNav";
+import { AllProductsSection } from "@/components/home/AllProductsSection";
 import { NewsletterSection } from "@/components/home/NewsletterSection";
 
+function shuffle<T>(items: T[]): T[] {
+  const result = [...items];
+  for (let i = result.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [result[i], result[j]] = [result[j], result[i]];
+  }
+  return result;
+}
+
 export default async function HomePage() {
-  const [categories, newProducts, featuredProducts, secondLifeProducts, limitedProducts, heroProducts] =
-    await Promise.all([
-      categoryService.getAllCategories(),
-      productService.getNewProducts(8),
-      productService.getFeaturedProducts(8),
-      productService.getSecondLifeProducts(8),
-      productService.getLimitedProducts(8),
-      productService.getFeaturedProducts(3),
-    ]);
+  const allProducts = shuffle(await productService.getAllProducts());
 
   return (
     <>
-      <Hero products={heroProducts} />
-      <CategoriesSection categories={categories} />
-      <NewArrivalsSection products={newProducts} />
-      <EditorialBanner />
-      <SecondLifeSection products={secondLifeProducts} />
-      <FeaturedSection products={featuredProducts} />
-      <LastChanceSection products={limitedProducts} />
+      <Hero />
+      <SubNav />
+      <AllProductsSection products={allProducts} />
       <NewsletterSection />
     </>
   );

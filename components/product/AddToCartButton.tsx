@@ -2,13 +2,14 @@
 
 import { useState, type MouseEvent } from "react";
 import { useCart } from "@/context/CartContext";
+import { PlusIcon, CartIcon } from "@/components/ui/icons";
 import { cn } from "@/lib/utils";
 import type { Product } from "@/types";
 
 interface AddToCartButtonProps {
   product: Product;
   quantity?: number;
-  variant?: "primary" | "compact";
+  variant?: "primary" | "compact" | "floating";
   className?: string;
 }
 
@@ -26,6 +27,30 @@ export function AddToCartButton({ product, quantity = 1, variant = "primary", cl
     addItem(product, quantity);
     setJustAdded(true);
     window.setTimeout(() => setJustAdded(false), 1600);
+  }
+
+  if (variant === "floating") {
+    return (
+      <button
+        type="button"
+        onClick={handleClick}
+        disabled={outOfStock}
+        aria-label={outOfStock ? "Producto agotado" : "Añadir al carrito"}
+        title={outOfStock ? "Agotado" : justAdded ? "Añadido" : "Añadir al carrito"}
+        className={cn(
+          "flex h-10 w-10 items-center justify-center rounded-full bg-white/95 text-tg-primary shadow-lg shadow-tg-primary/20 transition-all duration-200 hover:scale-105 hover:bg-tg-primary hover:text-white disabled:cursor-not-allowed disabled:opacity-60",
+          className
+        )}
+      >
+        {outOfStock ? (
+          <CartIcon className="h-4 w-4" />
+        ) : justAdded ? (
+          <CartIcon className="h-4 w-4 text-emerald-600" />
+        ) : (
+          <PlusIcon className="h-4 w-4" />
+        )}
+      </button>
+    );
   }
 
   if (variant === "compact") {

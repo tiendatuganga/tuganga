@@ -136,6 +136,14 @@ export function UserIcon(props: IconProps) {
   );
 }
 
+export function HeartIcon(props: IconProps) {
+  return (
+    <svg {...base} {...props}>
+      <path d="M12 20.5S4 15.2 4 9.8a4.6 4.6 0 0 1 8-3.2 4.6 4.6 0 0 1 8 3.2c0 5.4-8 10.7-8 10.7Z" />
+    </svg>
+  );
+}
+
 export function TrashIcon(props: IconProps) {
   return (
     <svg {...base} {...props}>

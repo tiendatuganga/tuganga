@@ -31,9 +31,9 @@ export function ProductCard({ product }: { product: Product }) {
             sizes="(min-width: 1024px) 23vw, (min-width: 640px) 33vw, 50vw"
           />
         )}
-        {badge && <ProductBadge status={badge} className="absolute left-3 top-3" />}
-        <div className="absolute inset-x-3 bottom-3 translate-y-2 opacity-0 transition-all duration-200 ease-out group-hover:translate-y-0 group-hover:opacity-100">
-          <AddToCartButton product={product} variant="compact" />
+        {badge && <ProductBadge status={badge} className="absolute left-4 top-4" />}
+        <div className="absolute bottom-3 right-3 translate-y-1 scale-75 opacity-0 transition-all duration-300 ease-out group-hover:translate-y-0 group-hover:scale-100 group-hover:opacity-100">
+          <AddToCartButton product={product} variant="floating" />
         </div>
       </Link>
       <div className="mt-4 flex flex-col gap-1">
@@ -44,7 +44,9 @@ export function ProductCard({ product }: { product: Product }) {
         >
           {product.title}
         </Link>
-        <ProductPrice price={product.price} compareAtPrice={product.compareAtPrice} className="mt-1" />
+        <div className="mt-1 min-h-7">
+          <ProductPrice price={product.price} compareAtPrice={product.compareAtPrice} />
+        </div>
       </div>
     </div>
   );

@@ -2,12 +2,21 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { useCart } from "@/context/CartContext";
 import { MobileMenu } from "@/components/layout/MobileMenu";
-import { NAV_LINKS } from "@/components/layout/nav-links";
 import { SearchOverlay } from "@/components/search/SearchOverlay";
-import { CartIcon, MenuIcon, MonogramTG, SearchIcon, UserIcon } from "@/components/ui/icons";
+import {
+  CartIcon,
+  HeartIcon,
+  MenuIcon,
+  SearchIcon,
+  UserIcon,
+} from "@/components/ui/icons";
 import { cn } from "@/lib/utils";
+
+const iconButton =
+  "relative rounded-full p-2.5 text-tg-ink/70 transition-colors hover:bg-tg-lavender-soft hover:text-tg-primary";
 
 export function Header() {
   const { cart, openDrawer } = useCart();
@@ -28,54 +37,70 @@ export function Header() {
     <>
       <header
         className={cn(
-          "sticky top-0 z-40 border-b bg-white/90 backdrop-blur-md transition-colors duration-200",
-          isScrolled ? "border-tg-lavender-soft" : "border-transparent"
+          "sticky top-0 z-40 bg-white/95 backdrop-blur-md transition-shadow duration-300",
+          isScrolled
+            ? "border-b border-tg-lavender-soft shadow-[0_8px_24px_-12px_rgba(89,37,112,0.18)]"
+            : "border-b border-transparent"
         )}
       >
-        <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-5 sm:px-8">
-          <Link href="/" className="flex items-center gap-2 text-tg-ink">
-            <MonogramTG className="h-6 w-6 text-tg-primary" />
-            <span className="font-display text-lg font-bold tracking-tight">TU GANGA</span>
+        <div className="mx-auto flex h-14 max-w-7xl items-center gap-4 px-5 sm:px-8 md:h-20">
+          <Link href="/" aria-label="TU GANGA — Inicio" className="shrink-0">
+            <Image
+              src="/logo.png"
+              alt="TU GANGA"
+              width={4284}
+              height={678}
+              priority
+              className="h-5 w-auto sm:h-6 md:h-8"
+            />
           </Link>
 
-          <nav className="hidden items-center gap-8 lg:flex">
-            {NAV_LINKS.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className="text-sm font-medium text-tg-ink/75 transition-colors hover:text-tg-primary"
-              >
-                {link.label}
-              </Link>
-            ))}
-          </nav>
+          <div className="mx-auto hidden w-full max-w-md md:block">
+            <button
+              type="button"
+              onClick={() => setSearchOpen(true)}
+              aria-label="Buscar productos, marcas o categorías"
+              className="group flex w-full items-center gap-3 rounded-full border border-tg-lavender/40 bg-tg-offwhite/70 py-2.5 pl-5 pr-4 text-left shadow-[0_1px_2px_rgba(23,19,26,0.04)] transition-all hover:border-tg-lavender hover:bg-white hover:shadow-[0_4px_16px_-6px_rgba(89,37,112,0.18)] focus-visible:outline-2"
+            >
+              <SearchIcon className="h-4 w-4 shrink-0 text-tg-primary/60 transition-colors group-hover:text-tg-primary" />
+              <span className="truncate text-sm text-tg-ink/45">Buscar productos, marcas o categorías...</span>
+            </button>
+          </div>
 
-          <div className="flex items-center gap-1 sm:gap-2">
+          <div className="ml-auto flex items-center gap-0.5 md:ml-0 md:gap-1.5">
             <button
               type="button"
               onClick={() => setSearchOpen(true)}
               aria-label="Buscar"
-              className="rounded-full p-2.5 text-tg-ink/70 transition-colors hover:bg-tg-lavender-soft hover:text-tg-primary"
+              className={cn(iconButton, "md:hidden")}
             >
-              <SearchIcon className="h-5 w-5" />
+              <SearchIcon className="h-6 w-6" />
             </button>
             <button
               type="button"
               aria-label="Cuenta"
               title="Próximamente"
-              className="hidden rounded-full p-2.5 text-tg-ink/70 transition-colors hover:bg-tg-lavender-soft hover:text-tg-primary lg:inline-flex"
+              className={cn(iconButton, "hidden lg:inline-flex")}
             >
-              <UserIcon className="h-5 w-5" />
+              <UserIcon className="h-6 w-6" />
+            </button>
+            <button
+              type="button"
+              aria-label="Favoritos"
+              title="Próximamente"
+              className={cn(iconButton, "hidden sm:inline-flex")}
+            >
+              <HeartIcon className="h-6 w-6" />
             </button>
             <button
               type="button"
               onClick={openDrawer}
               aria-label="Abrir carrito"
-              className="relative rounded-full p-2.5 text-tg-ink/70 transition-colors hover:bg-tg-lavender-soft hover:text-tg-primary"
+              className={cn(iconButton, "relative")}
             >
-              <CartIcon className="h-5 w-5" />
+              <CartIcon className="h-6 w-6" />
               {cart.totalQuantity > 0 && (
-                <span className="absolute right-0 top-0 flex h-4 min-w-4 items-center justify-center rounded-full bg-tg-primary px-1 text-[10px] font-semibold text-white">
+                <span className="absolute -right-1 -top-1 flex h-[18px] min-w-[18px] items-center justify-center rounded-full bg-tg-primary px-1 text-[11px] font-semibold text-white ring-2 ring-white">
                   {cart.totalQuantity}
                 </span>
               )}
@@ -84,9 +109,9 @@ export function Header() {
               type="button"
               onClick={() => setMenuOpen(true)}
               aria-label="Abrir menú"
-              className="rounded-full p-2.5 text-tg-ink/70 transition-colors hover:bg-tg-lavender-soft hover:text-tg-primary lg:hidden"
+              className={cn(iconButton, "lg:hidden")}
             >
-              <MenuIcon className="h-5 w-5" />
+              <MenuIcon className="h-6 w-6" />
             </button>
           </div>
         </div>

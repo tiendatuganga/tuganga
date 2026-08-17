@@ -57,3 +57,114 @@ body {
 .animate-tg-marquee {
   animation: tg-marquee 28s linear infinite;
 }
+
+@keyframes tg-gradient-shift {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+.animate-tg-gradient {
+  background-size: 200% 200%;
+  animation: tg-gradient-shift 12s ease-in-out infinite;
+}
+
+.tg-liquid {
+  background-color: #3d1b5c;
+  background-image:
+    radial-gradient(ellipse at 25% 25%, #71297a 0%, transparent 55%),
+    radial-gradient(ellipse at 75% 35%, #9575cd 0%, transparent 55%),
+    radial-gradient(ellipse at 20% 80%, #3d1b5c 0%, transparent 55%),
+    radial-gradient(ellipse at 65% 75%, #8a4ba0 0%, transparent 55%),
+    radial-gradient(ellipse at 50% 50%, #592570 0%, transparent 45%);
+  background-size: 300% 300%;
+}
+
+@keyframes tg-liquid-shift {
+  0% {
+    background-position: 0% 50%;
+  }
+  25% {
+    background-position: 50% 100%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  75% {
+    background-position: 50% 0%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.animate-tg-liquid {
+  animation: tg-liquid-shift 12s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+@keyframes tg-pill-shift {
+  0% {
+    background-position: 0% 50%;
+  }
+  33.33% {
+    background-position: 50% 100%;
+  }
+  66.66% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.tg-pill-nuevos {
+  background-image: linear-gradient(
+    120deg,
+    rgba(167, 243, 208, 0.6),
+    rgba(110, 231, 183, 0.6),
+    rgba(187, 247, 208, 0.6),
+    rgba(134, 239, 172, 0.6)
+  );
+  background-size: 300% 300%;
+  animation: tg-pill-shift 13s ease-in-out infinite;
+}
+
+.tg-pill-segunda-vuelta {
+  background-image: linear-gradient(
+    120deg,
+    rgba(254, 215, 170, 0.6),
+    rgba(253, 186, 116, 0.6),
+    rgba(254, 210, 184, 0.6),
+    rgba(253, 164, 175, 0.6)
+  );
+  background-size: 300% 300%;
+  animation: tg-pill-shift 14s ease-in-out infinite;
+}
+
+.tg-pill-destacados {
+  background-image: linear-gradient(
+    120deg,
+    rgba(253, 230, 138, 0.6),
+    rgba(252, 211, 77, 0.6),
+    rgba(254, 243, 199, 0.6),
+    rgba(252, 229, 136, 0.6)
+  );
+  background-size: 300% 300%;
+  animation: tg-pill-shift 12s ease-in-out infinite;
+}
+
+.tg-pill-ofertas {
+  background-image: linear-gradient(
+    120deg,
+    rgba(233, 213, 255, 0.6),
+    rgba(216, 180, 254, 0.6),
+    rgba(196, 181, 253, 0.6),
+    rgba(233, 213, 255, 0.6)
+  );
+  background-size: 300% 300%;
+  animation: tg-pill-shift 15s ease-in-out infinite;
+}

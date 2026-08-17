@@ -18,7 +18,7 @@ export function ProductPrice({ price, compareAtPrice, size = "md", className }: 
 
   return (
     <div className={cn("flex flex-wrap items-center gap-2", className)}>
-      <span className={cn("font-semibold text-tg-ink", sizeClasses[size])}>{formatPrice(price)}</span>
+      <span className={cn("font-bold text-tg-ink", sizeClasses[size])}>{formatPrice(price)}</span>
       {discount && (
         <>
           <span className="text-tg-ink/35 line-through">{formatPrice(compareAtPrice as number)}</span>

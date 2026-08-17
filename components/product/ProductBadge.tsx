@@ -7,8 +7,8 @@ const STATUS_CONFIG: Record<
   ProductStatus,
   { label: string; Icon: ComponentType<SVGProps<SVGSVGElement>>; className: string }
 > = {
-  NEW: { label: "Nuevo", Icon: SparkleIcon, className: "bg-tg-primary text-white" },
-  SECOND_LIFE: { label: "Segunda vuelta", Icon: LoopIcon, className: "bg-tg-lavender-soft text-tg-deep" },
+  NEW: { label: "Nuevo", Icon: SparkleIcon, className: "bg-emerald-500 text-white" },
+  SECOND_LIFE: { label: "Segunda vuelta", Icon: LoopIcon, className: "bg-orange-500 text-white" },
   LIMITED: { label: "Últimas unidades", Icon: BoltIcon, className: "bg-tg-dark text-white" },
   FEATURED: { label: "Destacado", Icon: StarIcon, className: "bg-white text-tg-primary ring-1 ring-inset ring-tg-primary/25" },
   SALE: { label: "Oferta", Icon: TagIcon, className: "bg-tg-purple text-white" },
