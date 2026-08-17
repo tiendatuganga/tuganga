@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 480" width="480" height="480" role="img" aria-hidden="true">
+  <defs>
+    <linearGradient id="grad-proyector-ambiente-2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#C6AECA" />
+      <stop offset="100%" stop-color="#71297A" />
+    </linearGradient>
+  </defs>
+  <rect width="480" height="480" fill="#FAF8FB" />
+  <g transform="translate(240,240) rotate(22)">
+    <path d="M 199.96731399536134,0 Q 120.09543760299684,115.97643471297093 95.31170722961427,165.08471947782175 Q 12.816389465332065,160.56017258101724 -107.17621376037592,185.6346475958338 Q -122.94301059722896,110.76917392609074 -158.14765686035156,1.936750217666835e-14 Q -103.44519965529446,-61.37675951719639 -95.93355818510062,-166.16179692745922 Q -30.532184976339433,-134.90988295579865 81.47316009521472,-141.11565273810535 Q 132.3664837646484,-50.31205724978999 199.96731399536134,0 Z" fill="url(#grad-proyector-ambiente-2)" />
+  </g>
+  <circle cx="86.40601706578374" cy="238.64043889299396" r="24" fill="#F1EAF4" opacity="0.55" />
+  <g transform="translate(240,240)" stroke="#FFFFFF" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity="0.92">
+    <rect x="-30" y="-14" width="44" height="28" rx="6"/><circle cx="24" cy="0" r="8"/><path d="M32,0 L52,-14 M32,0 L54,0 M32,0 L52,14"/>
+  </g>
+</svg>

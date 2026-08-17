@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 480" width="480" height="480" role="img" aria-hidden="true">
+  <defs>
+    <linearGradient id="grad-lampara-luna-2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F1EAF4" />
+      <stop offset="100%" stop-color="#C6AECA" />
+    </linearGradient>
+  </defs>
+  <rect width="480" height="480" fill="#FAF8FB" />
+  <g transform="translate(240,240) rotate(22)">
+    <path d="M 166.56946701049804,0 Q 132.73303788185117,84.40106865745227 92.72475053787231,160.60397905074439 Q 3.2323881626129314,184.81458613744988 -103.68421279907223,179.58632451077645 Q -126.57867439270018,101.33427019606206 -199.04106353759767,2.4375500136020394e-14 Q -136.0442658233643,-45.9965628869774 -79.29648696899422,-137.34554429202123 Q 16.879955667257192,-152.70624024303942 103.14904204130157,-178.6593815675928 Q 121.0225212800502,-61.522683184919444 166.56946701049804,0 Z" fill="url(#grad-lampara-luna-2)" />
+  </g>
+  <circle cx="86.40601706578374" cy="238.64043889299396" r="24" fill="#71297A" opacity="0.55" />
+  <g transform="translate(240,240)" stroke="#3D1B5C" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity="0.92">
+    <path d="M8,-30 A30,30 0 1 0 8,30 A22,22 0 1 1 8,-30 Z"/><line x1="0" y1="34" x2="0" y2="46"/><line x1="-14" y1="46" x2="14" y2="46"/>
+  </g>
+</svg>

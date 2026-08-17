@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 480" width="480" height="480" role="img" aria-hidden="true">
+  <defs>
+    <linearGradient id="grad-lampara-portatil-1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F1EAF4" />
+      <stop offset="100%" stop-color="#C6AECA" />
+    </linearGradient>
+  </defs>
+  <rect width="480" height="480" fill="#FAF8FB" />
+  <g transform="translate(240,240) rotate(0)">
+    <path d="M 196.6811727905273,0 Q 165.91675804138183,108.48438958328194 86.53322250366212,149.87993791900527 Q -21.744326019287076,167.66435695858837 -86.48837081909174,149.80225252252447 Q -114.33149230957028,95.06957451870854 -193.60219940185547,2.3709431380536992e-14 Q -125.64448059082035,-67.31487129605179 -105.85886032104501,-183.3529245073868 Q -0.857973861694451,-214.69303758774834 104.51883041381822,-181.0319246244087 Q 180.34274818181984,-96.5034344649143 196.6811727905273,0 Z" fill="url(#grad-lampara-portatil-1)" />
+  </g>
+  <circle cx="393.6" cy="240" r="24" fill="#71297A" opacity="0.55" />
+  <g transform="translate(240,240)" stroke="#3D1B5C" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity="0.92">
+    <line x1="-24" y1="36" x2="24" y2="36"/><line x1="0" y1="36" x2="0" y2="6"/><path d="M-26,6 L26,6 L14,-30 L-14,-30 Z"/>
+  </g>
+</svg>

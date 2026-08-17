@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 480" width="480" height="480" role="img" aria-hidden="true">
+  <defs>
+    <linearGradient id="grad-organizador-modular-2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#71297A" />
+      <stop offset="100%" stop-color="#3D1B5C" />
+    </linearGradient>
+  </defs>
+  <rect width="480" height="480" fill="#FAF8FB" />
+  <g transform="translate(240,240) rotate(22)">
+    <path d="M 190.08423294067381,0 Q 147.6818832206726,42.82363126253091 85.60253974914552,148.2679481024544 Q -8.410866880416835,161.56518068462546 -80.22070924758906,138.9463442360348 Q -99.49823430061336,71.0399529712889 -170.69445899963378,2.0904042284609064e-14 Q -131.3285705852509,-49.36405092863143 -92.68183347702035,-160.5296445208371 Q -22.272812032699683,-166.55448767686053 85.56338378906239,-148.20012799017155 Q 169.2839543151855,-41.59943495150667 190.08423294067381,0 Z" fill="url(#grad-organizador-modular-2)" />
+  </g>
+  <circle cx="86.40601706578374" cy="238.64043889299396" r="24" fill="#F1EAF4" opacity="0.55" />
+  <g transform="translate(240,240)" stroke="#FFFFFF" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity="0.92">
+    <rect x="-32" y="-32" width="26" height="26" rx="4"/><rect x="6" y="-32" width="26" height="26" rx="4"/><rect x="-32" y="6" width="26" height="26" rx="4"/><rect x="6" y="6" width="26" height="26" rx="4"/>
+  </g>
+</svg>

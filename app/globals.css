@@ -1,26 +1,59 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #faf8fb;
+  --foreground: #17131a;
+}
+
+@theme {
+  --color-tg-primary: #592570;
+  --color-tg-deep: #492169;
+  --color-tg-dark: #3d1b5c;
+  --color-tg-purple: #71297a;
+  --color-tg-lavender: #c6aeca;
+  --color-tg-lavender-soft: #f1eaf4;
+  --color-tg-white: #ffffff;
+  --color-tg-offwhite: #faf8fb;
+  --color-tg-ink: #17131a;
+
+  --font-display: var(--font-jakarta);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-inter);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans), system-ui, sans-serif;
+}
+
+::selection {
+  background: var(--color-tg-primary);
+  color: var(--color-tg-white);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-tg-primary);
+  outline-offset: 2px;
+}
+
+@keyframes tg-marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-tg-marquee {
+  animation: tg-marquee 28s linear infinite;
 }
