@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useCart } from "@/context/CartContext";
+import { useFavorites } from "@/context/FavoritesContext";
+import { useAuth } from "@/context/AuthContext";
 import { MobileMenu } from "@/components/layout/MobileMenu";
 import { SearchOverlay } from "@/components/search/SearchOverlay";
 import {
@@ -20,6 +22,8 @@ const iconButton =
 
 export function Header() {
   const { cart, openDrawer } = useCart();
+  const { favoriteCount, openDrawer: openFavorites } = useFavorites();
+  const { user, openAuth } = useAuth();
   const [isScrolled, setScrolled] = useState(false);
   const [isSearchOpen, setSearchOpen] = useState(false);
   const [isMenuOpen, setMenuOpen] = useState(false);
@@ -78,19 +82,30 @@ export function Header() {
             </button>
             <button
               type="button"
+              onClick={openAuth}
               aria-label="Cuenta"
-              title="Próximamente"
               className={cn(iconButton, "hidden lg:inline-flex")}
             >
-              <UserIcon className="h-6 w-6" />
+              {user ? (
+                <span className="flex h-6 w-6 items-center justify-center rounded-full bg-tg-primary text-[11px] font-bold text-white">
+                  {user.name.charAt(0).toUpperCase()}
+                </span>
+              ) : (
+                <UserIcon className="h-6 w-6" />
+              )}
             </button>
             <button
               type="button"
+              onClick={openFavorites}
               aria-label="Favoritos"
-              title="Próximamente"
-              className={cn(iconButton, "hidden sm:inline-flex")}
+              className={cn(iconButton, "relative hidden sm:inline-flex")}
             >
               <HeartIcon className="h-6 w-6" />
+              {favoriteCount > 0 && (
+                <span className="absolute -right-1 -top-1 flex h-[18px] min-w-[18px] items-center justify-center rounded-full bg-tg-primary px-1 text-[11px] font-semibold text-white ring-2 ring-white">
+                  {favoriteCount}
+                </span>
+              )}
             </button>
             <button
               type="button"

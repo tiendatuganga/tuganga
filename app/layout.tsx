@@ -2,9 +2,13 @@ import type { Metadata } from "next";
 import { Inter, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import { CartProvider } from "@/context/CartContext";
+import { FavoritesProvider } from "@/context/FavoritesContext";
+import { AuthProvider } from "@/context/AuthContext";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { CartDrawer } from "@/components/cart/CartDrawer";
+import { FavoritesDrawer } from "@/components/favorites/FavoritesDrawer";
+import { AccountDrawer } from "@/components/auth/AccountDrawer";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -47,10 +51,16 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     <html lang="es" className={`${inter.variable} ${jakarta.variable} h-full antialiased`}>
       <body className="flex min-h-full flex-col bg-tg-offwhite text-tg-ink">
         <CartProvider>
-          <Header />
-          <main className="flex-1">{children}</main>
-          <Footer />
-          <CartDrawer />
+          <FavoritesProvider>
+            <AuthProvider>
+              <Header />
+              <main className="flex-1">{children}</main>
+              <Footer />
+              <CartDrawer />
+              <FavoritesDrawer />
+              <AccountDrawer />
+            </AuthProvider>
+          </FavoritesProvider>
         </CartProvider>
       </body>
     </html>
