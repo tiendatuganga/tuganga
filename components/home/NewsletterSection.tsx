@@ -15,7 +15,7 @@ export function NewsletterSection() {
   }
 
   return (
-    <section className="mx-auto max-w-4xl px-5 py-16 text-center sm:px-8 sm:py-24">
+    <section className="mx-auto max-w-4xl px-5 pt-5 pb-16 text-center sm:px-8 sm:pt-6 sm:pb-24">
       <div>
         <span className="inline-flex items-center gap-2 rounded-full border border-tg-lavender/50 bg-white px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.18em] text-tg-primary">
           <BoltIcon className="h-3.5 w-3.5" />

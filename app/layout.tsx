@@ -6,6 +6,7 @@ import { TopBanner } from "@/components/layout/TopBanner";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { FavoritesDrawer } from "@/components/favorites/FavoritesDrawer";
+import { FloatingWhatsApp } from "@/components/whatsapp/FloatingWhatsApp";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -53,6 +54,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           <main className="flex-1">{children}</main>
           <Footer />
           <FavoritesDrawer />
+          <FloatingWhatsApp />
         </FavoritesProvider>
       </body>
     </html>

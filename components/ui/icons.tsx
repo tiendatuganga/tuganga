@@ -181,6 +181,33 @@ export function TrashIcon(props: IconProps) {
   );
 }
 
+export function MailIcon(props: IconProps) {
+  return (
+    <svg {...base} {...props}>
+      <rect x="3.5" y="5.5" width="17" height="13" rx="2.5" />
+      <path d="m4.5 7.5 7.5 5.5 7.5-5.5" />
+    </svg>
+  );
+}
+
+export function InstagramIcon(props: IconProps) {
+  return (
+    <svg {...base} {...props}>
+      <rect x="3.5" y="3.5" width="17" height="17" rx="4.5" />
+      <circle cx="12" cy="12" r="3.8" />
+      <circle cx="16.9" cy="7.1" r="0.9" fill="currentColor" stroke="none" />
+    </svg>
+  );
+}
+
+export function TikTokIcon(props: IconProps) {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" {...props}>
+      <path d="M16.6 2h-3.2v13.4c0 1.6-.96 2.6-2.34 2.6-1.25 0-2.17-.89-2.17-2.15 0-1.38 1.05-2.25 2.55-2V10.9C8.3 10.74 6 12.91 6 15.87a5.06 5.06 0 0 0 5.28 5.1c3.04 0 5.32-2.15 5.32-5.5V9.57c1.07.78 2.4 1.25 3.9 1.2V7.91c-2.16-.38-3.54-1.96-3.9-3.91Z" />
+    </svg>
+  );
+}
+
 /** Monograma "TG" propio de la marca, usado como marca de agua sutil. */
 export function MonogramTG(props: IconProps) {
   return (

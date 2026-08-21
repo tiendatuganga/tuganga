@@ -99,7 +99,7 @@ export function HomeCatalog({ products }: { products: Product[] }) {
   }, [products, filter]);
 
   const meta = FILTER_META[filter];
-  const columns = visible.length === 2 ? 2 : 4;
+  const columns = visible.length === 2 ? 2 : 5;
 
   function renderPills(className?: string) {
     return (

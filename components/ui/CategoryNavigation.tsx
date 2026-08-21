@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 
@@ -12,6 +14,10 @@ interface CategoryNavigationProps {
   label?: string;
   tone?: "brand" | "accent";
   className?: string;
+}
+
+function prefersReducedMotion(): boolean {
+  return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 }
 
 export function CategoryNavigation({
@@ -37,6 +43,17 @@ export function CategoryNavigation({
             key={`${item.href}-${item.label}`}
             href={item.href}
             aria-current={item.active ? "page" : undefined}
+            onClick={(event) => {
+              if (!item.href.startsWith("#")) return;
+              const target = document.getElementById(item.href.slice(1));
+              if (!target) return;
+              event.preventDefault();
+              window.history.replaceState(null, "", item.href);
+              target.scrollIntoView({
+                behavior: prefersReducedMotion() ? "auto" : "smooth",
+                block: "start",
+              });
+            }}
             className={cn(
               "shrink-0 rounded-full border px-4 py-2 text-sm font-semibold transition-colors duration-200",
               item.active
