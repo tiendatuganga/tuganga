@@ -3,7 +3,7 @@ import { ProductCard } from "@/components/product/ProductCard";
 
 interface ProductGridProps {
   products: Product[];
-  columns?: 3 | 4 | 5;
+  columns?: 2 | 3 | 4 | 5;
 }
 
 export function ProductGrid({ products, columns = 4 }: ProductGridProps) {
@@ -12,7 +12,13 @@ export function ProductGrid({ products, columns = 4 }: ProductGridProps) {
   }
 
   const gridColsClass =
-    columns === 3 ? "lg:grid-cols-3" : columns === 5 ? "md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5" : "lg:grid-cols-4";
+    columns === 2
+      ? ""
+      : columns === 3
+        ? "lg:grid-cols-3"
+        : columns === 5
+          ? "md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5"
+          : "lg:grid-cols-4";
 
   return (
     <div className={`grid grid-cols-2 gap-x-5 gap-y-10 sm:grid-cols-2 ${gridColsClass}`}>

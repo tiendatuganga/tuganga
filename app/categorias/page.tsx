@@ -20,7 +20,7 @@ export default async function CategoriasPage() {
         {categories.map((category) => (
           <Link
             key={category.id}
-            href={`/categoria/${category.slug}`}
+            href={category.slug === "salud" ? "/salud" : `/categoria/${category.slug}`}
             className="group relative flex aspect-[4/5] flex-col justify-end overflow-hidden rounded-2xl"
           >
             <Image

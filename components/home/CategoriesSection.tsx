@@ -17,7 +17,7 @@ export function CategoriesSection({ categories }: { categories: Category[] }) {
         {categories.map((category, index) => (
           <Link
             key={category.id}
-            href={`/categoria/${category.slug}`}
+            href={category.slug === "salud" ? "/salud" : `/categoria/${category.slug}`}
             className={cn(
               "group relative flex aspect-[4/5] flex-col justify-end overflow-hidden rounded-2xl",
               index === 0 && "col-span-2 aspect-[8/5] sm:col-span-1 sm:aspect-[4/5] lg:col-span-2 lg:aspect-[8/5]"

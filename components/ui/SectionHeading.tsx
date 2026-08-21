@@ -20,7 +20,7 @@ export function SectionHeading({ eyebrow, title, description, action, className 
           </span>
         )}
         <h2 className="font-display text-3xl font-bold tracking-tight text-tg-ink sm:text-4xl">{title}</h2>
-        {description && <p className="mt-3 text-base leading-relaxed text-tg-ink/65">{description}</p>}
+        {description && <p className="mt-3 text-base leading-relaxed text-tg-muted">{description}</p>}
       </div>
       {action && (
         <Link

@@ -10,7 +10,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     categoryService.getAllCategories(),
   ]);
 
-  const staticRoutes: MetadataRoute.Sitemap = ["", "/productos", "/categorias"].map((path) => ({
+  const staticRoutes: MetadataRoute.Sitemap = ["", "/productos", "/categorias", "/salud"].map((path) => ({
     url: `${siteUrl}${path}`,
     lastModified: new Date(),
   }));
@@ -20,7 +20,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     lastModified: new Date(product.createdAt),
   }));
 
-  const categoryRoutes: MetadataRoute.Sitemap = categories.map((category) => ({
+  const categoryRoutes: MetadataRoute.Sitemap = categories.filter((category) => category.slug !== "salud").map((category) => ({
     url: `${siteUrl}/categoria/${category.slug}`,
     lastModified: new Date(),
   }));

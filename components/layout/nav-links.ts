@@ -13,8 +13,7 @@ export const PRIMARY_NAV = [
 ] as const;
 
 export const QUICK_PILLS = [
-  { label: "Destacados", href: "/productos?filtro=destacados", icon: "star", iconClass: "text-amber-500" },
-  { label: "Ofertas", href: "/productos?filtro=ultimas-oportunidades", icon: "bolt", iconClass: "text-tg-primary" },
-  { label: "Segunda vuelta", href: "/productos?filtro=segunda-vuelta", icon: "loop", iconClass: "text-orange-500" },
-  { label: "Nuevos", href: "/productos?filtro=nuevos", icon: "sparkle", iconClass: "text-emerald-500" },
+  { label: "Nuevos", href: "/productos?filtro=nuevos", icon: "sparkle", iconClass: "text-emerald-600" },
+  { label: "Ofertas", href: "/productos?filtro=ofertas", icon: "bolt", iconClass: "text-red-600" },
+  { label: "Segunda vuelta", href: "/productos?filtro=segunda-vuelta", icon: "loop", iconClass: "text-orange-600" },
 ] as const;

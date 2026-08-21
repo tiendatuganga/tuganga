@@ -1,4 +1,4 @@
-import type { Category, Product, ProductStatus } from "@/types";
+import type { Category, ExternalChannel, Product, ProductAvailability, ProductStatus } from "@/types";
 
 interface ShopifyMoney {
   amount: string;
@@ -33,6 +33,8 @@ export interface ShopifyCollectionNode {
 }
 
 const VALID_STATUSES: ProductStatus[] = ["NEW", "SECOND_LIFE", "LIMITED", "FEATURED", "SALE"];
+const VALID_AVAILABILITY: ProductAvailability[] = ["AVAILABLE", "RESERVED", "SOLD"];
+const VALID_CHANNELS: ExternalChannel[] = ["WALLAPOP", "VINTED", "WHATSAPP"];
 
 function readMetafield(metafields: (ShopifyMetafield | null)[] | undefined, key: string) {
   return metafields?.find((field) => field?.key === key)?.value;
@@ -52,6 +54,22 @@ export function mapShopifyProduct(node: ShopifyProductNode): Product {
     .filter((value): value is ProductStatus => VALID_STATUSES.includes(value as ProductStatus)) ?? [];
 
   const featuredMetafield = readMetafield(node.metafields, "featured");
+  const availabilityMetafield = readMetafield(node.metafields, "availability")?.toUpperCase();
+  const externalChannelMetafield = readMetafield(node.metafields, "sales_channel")?.toUpperCase();
+  const externalUrl = readMetafield(node.metafields, "external_url");
+  const whatsappEnabled = readMetafield(node.metafields, "whatsapp_enabled") === "true";
+  const condition = readMetafield(node.metafields, "condition");
+  const reviewedMetafield = readMetafield(node.metafields, "reviewed");
+  const location = readMetafield(node.metafields, "location");
+  const delivery = readMetafield(node.metafields, "delivery");
+  const availability = VALID_AVAILABILITY.includes(availabilityMetafield as ProductAvailability)
+    ? (availabilityMetafield as ProductAvailability)
+    : node.totalInventory === 0
+      ? "SOLD"
+      : "AVAILABLE";
+  const externalChannel = VALID_CHANNELS.includes(externalChannelMetafield as ExternalChannel)
+    ? (externalChannelMetafield as ExternalChannel)
+    : undefined;
 
   return {
     id: node.id,
@@ -65,6 +83,14 @@ export function mapShopifyProduct(node: ShopifyProductNode): Product {
     status,
     tags: node.tags,
     inventory: node.totalInventory ?? 0,
+    availability,
+    externalChannel,
+    externalUrl: externalUrl || undefined,
+    whatsappEnabled,
+    condition: condition || undefined,
+    reviewed: reviewedMetafield ? reviewedMetafield === "true" : undefined,
+    location: location || undefined,
+    delivery: delivery || undefined,
     featured: featuredMetafield === "true" || status.includes("FEATURED"),
     secondLife: status.includes("SECOND_LIFE"),
     createdAt: new Date().toISOString(),

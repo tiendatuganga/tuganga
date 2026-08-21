@@ -2,8 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { motion } from "framer-motion";
-import { GradientWave } from "@/components/ui/gradient-wave";
+import { motion, useReducedMotion } from "framer-motion";
 import { Button } from "@/components/ui/Button";
 import { SparkleIcon } from "@/components/ui/icons";
 import { formatPrice } from "@/lib/utils";
@@ -36,13 +35,12 @@ const FLOATING_PRODUCTS = [
 ] as const;
 
 export function Hero() {
+  const reduceMotion = useReducedMotion();
+
   return (
-    <section className="relative overflow-hidden bg-[#2e1065]">
-      <div className="absolute inset-0">
-        <GradientWave />
-      </div>
+    <section className="relative overflow-hidden bg-tg-dark">
       <motion.div
-        initial={{ opacity: 0, y: 16 }}
+        initial={reduceMotion ? false : { opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, ease: "easeOut" }}
         className="relative z-10 mx-auto flex w-full max-w-4xl flex-col items-center px-5 py-12 text-center sm:px-8 sm:py-16 sm:text-left lg:mx-10 lg:items-start lg:py-24"
@@ -50,7 +48,7 @@ export function Hero() {
         <div className="max-w-2xl">
           <span className="inline-flex items-center gap-2 rounded-full bg-black/25 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.18em] text-white ring-1 ring-inset ring-white/30">
             <SparkleIcon className="h-3.5 w-3.5" />
-            Nueva selección cada semana
+            Selección renovada cada semana
           </span>
           <h1 className="mt-6 font-display text-4xl font-extrabold leading-[1.05] tracking-tight text-white sm:text-5xl lg:text-6xl">
             ENCUENTRA TU
@@ -58,8 +56,8 @@ export function Hero() {
             PRÓXIMA GANGA.
           </h1>
           <p className="mt-6 max-w-xl text-base leading-relaxed text-white/85 sm:text-lg">
-            Productos nuevos, segundas oportunidades y ofertas de última hora. Descubrir en TU GANGA
-            es casi tan bueno como comprar.
+            Productos nuevos, segunda vuelta y oportunidades seleccionadas para ti. Encuentra el tuyo
+            y elige dónde comprarlo.
           </p>
           <div className="mt-8 flex flex-wrap justify-center gap-4 sm:justify-start">
             <Button
@@ -69,11 +67,11 @@ export function Hero() {
               Descubrir productos
             </Button>
             <Button
-              href="/productos?filtro=ultimas-oportunidades"
+              href="/productos?filtro=segunda-vuelta"
               variant="secondary"
-              className="border-white/40 text-white hover:border-white hover:bg-white hover:text-tg-primary"
+              className="border-white/40 bg-transparent text-white hover:border-white hover:bg-white hover:text-tg-primary"
             >
-              Últimas oportunidades
+              Segunda vuelta
             </Button>
           </div>
         </div>
@@ -82,13 +80,13 @@ export function Hero() {
         {FLOATING_PRODUCTS.map((product, index) => (
           <motion.div
             key={product.href}
-            initial={{ opacity: 0, x: 40 }}
+            initial={reduceMotion ? false : { opacity: 0, x: 24 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6, delay: 0.3 + index * 0.15, ease: "easeOut" }}
+            transition={{ duration: 0.5, delay: 0.25 + index * 0.12, ease: "easeOut" }}
           >
             <Link
               href={product.href}
-              className="group relative block overflow-hidden rounded-2xl ring-1 ring-white/25 shadow-2xl shadow-black/40 transition-transform duration-300 hover:scale-105"
+              className="group relative block overflow-hidden rounded-card border border-white/20 shadow-card transition-colors duration-200 hover:border-white/40"
             >
               <Image
                 src={product.src}
@@ -97,7 +95,7 @@ export function Hero() {
                 height={240}
                 className="h-32 w-32 object-cover transition-transform duration-500 ease-out group-hover:scale-110 xl:h-36 xl:w-36"
               />
-              <span className="absolute bottom-2 right-2 rounded-full bg-tg-primary/90 px-2.5 py-1 text-xs font-bold text-white backdrop-blur-sm">
+              <span className="absolute bottom-2 right-2 rounded-full bg-tg-primary px-2.5 py-1 text-xs font-bold text-white">
                 {formatPrice(product.price)}
               </span>
             </Link>

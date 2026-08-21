@@ -5,6 +5,13 @@ const unsplash = (id: string) =>
 
 export const mockCategories: Category[] = [
   {
+    id: "cat-salud",
+    title: "Salud",
+    slug: "salud",
+    description: "Bienestar, recuperación y cuidado personal revisado.",
+    image: "/categories/salud.svg",
+  },
+  {
     id: "cat-hogar",
     title: "Hogar",
     slug: "hogar",

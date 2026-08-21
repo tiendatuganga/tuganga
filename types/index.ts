@@ -1,4 +1,6 @@
 export type ProductStatus = "NEW" | "SECOND_LIFE" | "LIMITED" | "FEATURED" | "SALE";
+export type ProductAvailability = "AVAILABLE" | "RESERVED" | "SOLD";
+export type ExternalChannel = "WALLAPOP" | "VINTED" | "WHATSAPP";
 
 export interface ProductImage {
   url: string;
@@ -17,6 +19,14 @@ export interface Product {
   status: ProductStatus[];
   tags: string[];
   inventory: number;
+  availability?: ProductAvailability;
+  externalChannel?: ExternalChannel;
+  externalUrl?: string;
+  whatsappEnabled: boolean;
+  condition?: string;
+  reviewed?: boolean;
+  location?: string;
+  delivery?: string;
   featured: boolean;
   secondLife: boolean;
   createdAt: string;
@@ -28,16 +38,4 @@ export interface Category {
   slug: string;
   description: string;
   image: string;
-}
-
-export interface CartLine {
-  id: string;
-  product: Product;
-  quantity: number;
-}
-
-export interface Cart {
-  lines: CartLine[];
-  subtotal: number;
-  totalQuantity: number;
 }

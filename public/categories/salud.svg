@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 1100" role="img" aria-labelledby="title desc">
+  <title id="title">Salud y bienestar</title>
+  <desc id="desc">Ilustración abstracta de una cruz sanitaria y hojas sobre fondo verde.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#3D1B5C"/>
+      <stop offset="1" stop-color="#71297A"/>
+    </linearGradient>
+    <radialGradient id="glow">
+      <stop stop-color="#C6AECA" stop-opacity=".48"/>
+      <stop offset="1" stop-color="#C6AECA" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="900" height="1100" fill="url(#bg)"/>
+  <circle cx="690" cy="210" r="330" fill="url(#glow)"/>
+  <path d="M148 800c186-28 280-126 316-294-171 16-284 109-316 294Z" fill="#F3EFE6" fill-opacity=".18"/>
+  <path d="M752 801c-180-32-273-132-303-301 169 20 277 116 303 301Z" fill="#F3EFE6" fill-opacity=".12"/>
+  <path d="M383 290h134v137h137v134H517v137H383V561H246V427h137Z" fill="#C6AECA"/>
+  <circle cx="450" cy="494" r="254" fill="none" stroke="#F3EFE6" stroke-opacity=".22" stroke-width="3" stroke-dasharray="14 18"/>
+</svg>

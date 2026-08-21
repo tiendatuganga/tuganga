@@ -56,7 +56,7 @@ export function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
               </button>
             </div>
 
-            <div className="mt-6 flex items-center gap-3 border-b-2 border-tg-ink/10 pb-4 focus-within:border-tg-primary">
+            <div className="mt-6 flex items-center gap-3 rounded-2xl border border-tg-border bg-tg-offwhite px-5 py-4 transition-colors focus-within:border-tg-primary focus-within:bg-white">
               <SearchIcon className="h-5 w-5 shrink-0 text-tg-ink/40" />
               <input
                 autoFocus
@@ -64,7 +64,7 @@ export function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
                 onChange={(event) => setQuery(event.target.value)}
                 type="text"
                 placeholder="¿Qué estás buscando?"
-                className="w-full bg-transparent font-display text-xl font-medium text-tg-ink placeholder:text-tg-ink/30 focus:outline-none sm:text-3xl"
+                className="w-full bg-transparent font-display text-xl font-medium text-tg-ink placeholder:text-tg-muted focus:outline-none sm:text-3xl"
               />
             </div>
 

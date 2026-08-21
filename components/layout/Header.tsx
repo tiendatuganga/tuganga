@@ -3,17 +3,13 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { useCart } from "@/context/CartContext";
 import { useFavorites } from "@/context/FavoritesContext";
-import { useAuth } from "@/context/AuthContext";
 import { MobileMenu } from "@/components/layout/MobileMenu";
 import { SearchOverlay } from "@/components/search/SearchOverlay";
 import {
-  CartIcon,
   HeartIcon,
   MenuIcon,
   SearchIcon,
-  UserIcon,
 } from "@/components/ui/icons";
 import { cn } from "@/lib/utils";
 
@@ -21,9 +17,7 @@ const iconButton =
   "relative rounded-full p-2.5 text-tg-ink/70 transition-colors hover:bg-tg-lavender-soft hover:text-tg-primary";
 
 export function Header() {
-  const { cart, openDrawer } = useCart();
   const { favoriteCount, openDrawer: openFavorites } = useFavorites();
-  const { user, openAuth } = useAuth();
   const [isScrolled, setScrolled] = useState(false);
   const [isSearchOpen, setSearchOpen] = useState(false);
   const [isMenuOpen, setMenuOpen] = useState(false);
@@ -41,9 +35,9 @@ export function Header() {
     <>
       <header
         className={cn(
-          "sticky top-0 z-40 bg-white/95 backdrop-blur-md transition-shadow duration-300",
+          "sticky top-0 z-40 bg-white transition-shadow duration-200",
           isScrolled
-            ? "border-b border-tg-lavender-soft shadow-[0_8px_24px_-12px_rgba(89,37,112,0.18)]"
+            ? "border-b border-tg-border shadow-soft"
             : "border-b border-transparent"
         )}
       >
@@ -64,7 +58,7 @@ export function Header() {
               type="button"
               onClick={() => setSearchOpen(true)}
               aria-label="Buscar productos, marcas o categorías"
-              className="group flex w-full items-center gap-3 rounded-full border border-tg-lavender/40 bg-tg-offwhite/70 py-2.5 pl-5 pr-4 text-left shadow-[0_1px_2px_rgba(23,19,26,0.04)] transition-all hover:border-tg-lavender hover:bg-white hover:shadow-[0_4px_16px_-6px_rgba(89,37,112,0.18)] focus-visible:outline-2"
+              className="group flex w-full items-center gap-3 rounded-full border border-tg-border bg-tg-offwhite py-2.5 pl-5 pr-4 text-left transition-colors hover:border-tg-lavender hover:bg-white focus-visible:outline-2"
             >
               <SearchIcon className="h-4 w-4 shrink-0 text-tg-primary/60 transition-colors group-hover:text-tg-primary" />
               <span className="truncate text-sm text-tg-ink/45">Buscar productos, marcas o categorías...</span>
@@ -82,20 +76,6 @@ export function Header() {
             </button>
             <button
               type="button"
-              onClick={openAuth}
-              aria-label="Cuenta"
-              className={cn(iconButton, "hidden lg:inline-flex")}
-            >
-              {user ? (
-                <span className="flex h-6 w-6 items-center justify-center rounded-full bg-tg-primary text-[11px] font-bold text-white">
-                  {user.name.charAt(0).toUpperCase()}
-                </span>
-              ) : (
-                <UserIcon className="h-6 w-6" />
-              )}
-            </button>
-            <button
-              type="button"
               onClick={openFavorites}
               aria-label="Favoritos"
               className={cn(iconButton, "relative hidden sm:inline-flex")}
@@ -104,19 +84,6 @@ export function Header() {
               {favoriteCount > 0 && (
                 <span className="absolute -right-1 -top-1 flex h-[18px] min-w-[18px] items-center justify-center rounded-full bg-tg-primary px-1 text-[11px] font-semibold text-white ring-2 ring-white">
                   {favoriteCount}
-                </span>
-              )}
-            </button>
-            <button
-              type="button"
-              onClick={openDrawer}
-              aria-label="Abrir carrito"
-              className={cn(iconButton, "relative")}
-            >
-              <CartIcon className="h-6 w-6" />
-              {cart.totalQuantity > 0 && (
-                <span className="absolute -right-1 -top-1 flex h-[18px] min-w-[18px] items-center justify-center rounded-full bg-tg-primary px-1 text-[11px] font-semibold text-white ring-2 ring-white">
-                  {cart.totalQuantity}
                 </span>
               )}
             </button>

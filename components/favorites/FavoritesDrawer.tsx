@@ -4,15 +4,13 @@ import Image from "next/image";
 import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
 import { useFavorites } from "@/context/FavoritesContext";
-import { useCart } from "@/context/CartContext";
 import { Button } from "@/components/ui/Button";
-import { AddToCartButton } from "@/components/product/AddToCartButton";
+import { ExternalProductCTA } from "@/components/product/ExternalProductCTA";
 import { CloseIcon, HeartIcon, TrashIcon } from "@/components/ui/icons";
 import { formatPrice } from "@/lib/utils";
 
 export function FavoritesDrawer() {
   const { products, isDrawerOpen, closeDrawer, removeFavorite } = useFavorites();
-  const { addItem } = useCart();
 
   return (
     <AnimatePresence>
@@ -29,7 +27,7 @@ export function FavoritesDrawer() {
           />
           <motion.aside
             key="favorites-drawer"
-            className="fixed right-0 top-0 z-50 flex h-full w-full max-w-md flex-col bg-white shadow-2xl"
+            className="fixed right-0 top-0 z-50 flex h-full w-full max-w-md flex-col border-l border-tg-border bg-white shadow-card"
             initial={{ x: "100%" }}
             animate={{ x: 0 }}
             exit={{ x: "100%" }}
@@ -89,7 +87,7 @@ export function FavoritesDrawer() {
                         {formatPrice(product.price)}
                       </p>
                       <div className="mt-2">
-                        <AddToCartButton product={product} variant="compact" />
+                        <ExternalProductCTA product={product} variant="compact" />
                       </div>
                     </div>
                     <button

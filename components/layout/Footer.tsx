@@ -3,7 +3,7 @@ import { MonogramTG } from "@/components/ui/icons";
 
 const FOOTER_LINKS = [
   {
-    title: "Comprar",
+    title: "Descubrir",
     links: [
       { label: "Nuevos", href: "/productos?filtro=nuevos" },
       { label: "Segunda vuelta", href: "/productos?filtro=segunda-vuelta" },
@@ -12,10 +12,10 @@ const FOOTER_LINKS = [
     ],
   },
   {
-    title: "Ayuda",
+    title: "Información",
     links: [
-      { label: "Envíos", href: "/" },
-      { label: "Devoluciones", href: "/" },
+      { label: "Cómo funciona", href: "/" },
+      { label: "Canales de compra", href: "/" },
       { label: "Contacto", href: "/" },
     ],
   },
@@ -23,7 +23,7 @@ const FOOTER_LINKS = [
 
 export function Footer() {
   return (
-    <footer className="mt-24 border-t border-tg-lavender-soft bg-tg-offwhite">
+    <footer className="mt-24 border-t border-tg-border bg-tg-offwhite">
       <div className="mx-auto max-w-7xl px-5 py-16 sm:px-8">
         <div className="grid gap-12 lg:grid-cols-[1.4fr_1fr_1fr]">
           <div>
@@ -53,7 +53,7 @@ export function Footer() {
           ))}
         </div>
 
-        <div className="mt-16 flex flex-col items-center justify-between gap-4 border-t border-tg-lavender-soft pt-8 text-xs text-tg-ink/45 sm:flex-row">
+        <div className="mt-16 flex flex-col items-center justify-between gap-4 border-t border-tg-border pt-8 text-xs text-tg-muted sm:flex-row">
           <p>© {new Date().getFullYear()} TU GANGA. Todos los derechos reservados.</p>
           <p>Hecho en España.</p>
         </div>

@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
-import { CloseIcon, BoltIcon, LoopIcon, SparkleIcon, StarIcon } from "@/components/ui/icons";
+import { CloseIcon, BoltIcon, LoopIcon, SparkleIcon } from "@/components/ui/icons";
 import { NAV_LINKS, PRIMARY_NAV, QUICK_PILLS } from "@/components/layout/nav-links";
 import { cn } from "@/lib/utils";
 
@@ -13,7 +13,6 @@ interface MobileMenuProps {
 }
 
 const PILL_ICONS = {
-  star: StarIcon,
   bolt: BoltIcon,
   loop: LoopIcon,
   sparkle: SparkleIcon,

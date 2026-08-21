@@ -1,8 +1,7 @@
-import Link from "next/link";
 import type { Metadata } from "next";
 import { productService } from "@/lib/services/product-service";
 import { ProductGrid } from "@/components/product/ProductGrid";
-import { cn } from "@/lib/utils";
+import { CategoryNavigation } from "@/components/ui/CategoryNavigation";
 import type { Product } from "@/types";
 
 export const metadata: Metadata = {
@@ -13,6 +12,7 @@ export const metadata: Metadata = {
 const FILTERS = [
   { key: undefined, label: "Todos" },
   { key: "nuevos", label: "Nuevos" },
+  { key: "ofertas", label: "Ofertas" },
   { key: "segunda-vuelta", label: "Segunda vuelta" },
   { key: "ultimas-oportunidades", label: "Últimas oportunidades" },
   { key: "destacados", label: "Destacados" },
@@ -20,6 +20,7 @@ const FILTERS = [
 
 const FILTER_COPY: Record<string, { title: string; description: string }> = {
   nuevos: { title: "Nuevos", description: "Lo último que ha entrado en TU GANGA." },
+  ofertas: { title: "Ofertas", description: "Gangas con descuento directo. Cuando vuelan, vuelan." },
   "segunda-vuelta": {
     title: "Segunda vuelta",
     description: "Una segunda oportunidad para productos que todavía tienen mucho que ofrecer.",
@@ -37,6 +38,8 @@ async function getFilteredProducts(filtro?: string, categoria?: string): Promise
   switch (filtro) {
     case "nuevos":
       return productService.getNewProducts(48);
+    case "ofertas":
+      return productService.getSaleProducts(48);
     case "segunda-vuelta":
       return productService.getSecondLifeProducts(48);
     case "ultimas-oportunidades":
@@ -59,6 +62,11 @@ export default async function ProductosPage({
     filtro && FILTER_COPY[filtro]
       ? FILTER_COPY[filtro]
       : { title: "Todos los productos", description: "Explora el catálogo completo de TU GANGA." };
+  const navigationItems = FILTERS.map((item) => ({
+    label: item.label,
+    href: item.key ? `/productos?filtro=${item.key}` : "/productos",
+    active: !categoria && filtro === item.key,
+  }));
 
   return (
     <div className="mx-auto max-w-7xl px-5 py-16 sm:px-8">
@@ -67,24 +75,7 @@ export default async function ProductosPage({
         <p className="mt-3 text-base text-tg-ink/60">{heading.description}</p>
       </div>
 
-      <div className="mt-8 flex flex-wrap gap-2">
-        {FILTERS.map((item) => {
-          const href = item.key ? `/productos?filtro=${item.key}` : "/productos";
-          const active = !categoria && filtro === item.key;
-          return (
-            <Link
-              key={item.label}
-              href={href}
-              className={cn(
-                "rounded-full px-4 py-2 text-xs font-semibold uppercase tracking-wide transition-colors",
-                active ? "bg-tg-primary text-white" : "bg-tg-lavender-soft text-tg-deep hover:bg-tg-lavender/50"
-              )}
-            >
-              {item.label}
-            </Link>
-          );
-        })}
-      </div>
+      <CategoryNavigation items={navigationItems} label="Filtrar productos" className="mt-8 rounded-2xl" />
 
       <div className="mt-10">
         <ProductGrid products={products} />

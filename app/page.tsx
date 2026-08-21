@@ -1,7 +1,7 @@
 import { productService } from "@/lib/services/product-service";
 import { Hero } from "@/components/home/Hero";
-import { SubNav } from "@/components/layout/SubNav";
-import { AllProductsSection } from "@/components/home/AllProductsSection";
+import { HomeCatalog } from "@/components/home/HomeCatalog";
+import { SaludBanner } from "@/components/home/SaludBanner";
 import { NewsletterSection } from "@/components/home/NewsletterSection";
 
 function shuffle<T>(items: T[]): T[] {
@@ -14,13 +14,14 @@ function shuffle<T>(items: T[]): T[] {
 }
 
 export default async function HomePage() {
-  const allProducts = shuffle(await productService.getAllProducts());
+  const allProducts = await productService.getAllProducts();
+  const catalogProducts = shuffle(allProducts.filter((product) => product.availability !== "SOLD"));
 
   return (
     <>
       <Hero />
-      <SubNav />
-      <AllProductsSection products={allProducts} />
+      <HomeCatalog products={catalogProducts} />
+      <SaludBanner />
       <NewsletterSection />
     </>
   );

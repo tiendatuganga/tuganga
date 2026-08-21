@@ -1,4 +1,4 @@
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import type { Metadata } from "next";
 import { categoryService } from "@/lib/services/category-service";
 import { productService } from "@/lib/services/product-service";
@@ -6,7 +6,7 @@ import { ProductGrid } from "@/components/product/ProductGrid";
 
 export async function generateStaticParams() {
   const categories = await categoryService.getAllCategories();
-  return categories.map((category) => ({ slug: category.slug }));
+  return categories.filter((category) => category.slug !== "salud").map((category) => ({ slug: category.slug }));
 }
 
 export async function generateMetadata({
@@ -23,6 +23,7 @@ export async function generateMetadata({
 
 export default async function CategoriaPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
+  if (slug === "salud") redirect("/salud");
   const category = await categoryService.getCategoryBySlug(slug);
   if (!category) notFound();
 

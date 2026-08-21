@@ -17,7 +17,7 @@ interface ShopifyGraphQLError {
 
 /**
  * Cliente mínimo para el Shopify Storefront API (GraphQL).
- * No se usa todavía: los `ProductService`/`CategoryService`/`CartService` activos
+ * No se usa todavía: los `ProductService`/`CategoryService` activos
  * son los Mock. Cuando se conecte Shopify, se implementarán
  * `ShopifyProductService` etc. sobre esta función.
  */

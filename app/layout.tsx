@@ -1,14 +1,11 @@
 import type { Metadata } from "next";
 import { Inter, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
-import { CartProvider } from "@/context/CartContext";
 import { FavoritesProvider } from "@/context/FavoritesContext";
-import { AuthProvider } from "@/context/AuthContext";
+import { TopBanner } from "@/components/layout/TopBanner";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
-import { CartDrawer } from "@/components/cart/CartDrawer";
 import { FavoritesDrawer } from "@/components/favorites/FavoritesDrawer";
-import { AccountDrawer } from "@/components/auth/AccountDrawer";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -30,11 +27,11 @@ export const metadata: Metadata = {
     template: "%s | TU GANGA",
   },
   description:
-    "TU GANGA es una tienda online española con nuevos productos, oportunidades de última hora y una segunda vuelta para artículos que todavía tienen mucho que ofrecer.",
+    "TU GANGA es un catálogo para descubrir productos, oportunidades de última hora y artículos de segunda vuelta.",
   openGraph: {
     title: "TU GANGA — Encuentra tu próxima ganga",
     description:
-      "Descubre nuevos productos, últimas oportunidades y la segunda vuelta de TU GANGA, la tienda española donde comprar es divertido.",
+      "Descubre productos, últimas oportunidades y artículos de segunda vuelta en TU GANGA.",
     url: siteUrl,
     siteName: "TU GANGA",
     locale: "es_ES",
@@ -50,18 +47,13 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="es" className={`${inter.variable} ${jakarta.variable} h-full antialiased`}>
       <body className="flex min-h-full flex-col bg-tg-offwhite text-tg-ink">
-        <CartProvider>
-          <FavoritesProvider>
-            <AuthProvider>
-              <Header />
-              <main className="flex-1">{children}</main>
-              <Footer />
-              <CartDrawer />
-              <FavoritesDrawer />
-              <AccountDrawer />
-            </AuthProvider>
-          </FavoritesProvider>
-        </CartProvider>
+        <FavoritesProvider>
+          <TopBanner />
+          <Header />
+          <main className="flex-1">{children}</main>
+          <Footer />
+          <FavoritesDrawer />
+        </FavoritesProvider>
       </body>
     </html>
   );
