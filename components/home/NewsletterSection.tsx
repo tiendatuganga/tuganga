@@ -34,7 +34,7 @@ export function NewsletterSection() {
           href={buildWhatsAppLink("¡Hola! Quiero recibir las nuevas gangas de TU GANGA por WhatsApp.")}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-tg-primary px-6 py-3.5 text-sm font-semibold text-white transition-colors duration-200 hover:bg-tg-deep"
+          className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-whatsapp px-6 py-3.5 text-sm font-semibold text-white transition-colors duration-200 hover:bg-whatsapp-strong"
         >
           <WhatsAppIcon className="h-4 w-4" />
           Recibir gangas por WhatsApp

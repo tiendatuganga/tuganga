@@ -24,6 +24,10 @@
   --health-accent-border: #b8d8cf;
   --whatsapp: #25d366;
   --whatsapp-strong: #1da851;
+  --wallapop: #13c1ac;
+  --wallapop-strong: #0ea894;
+  --vinted: #007782;
+  --vinted-strong: #005f68;
 }
 
 .theme-health {
@@ -51,6 +55,10 @@
   --color-tg-accent-soft: var(--accent-soft);
   --color-whatsapp: var(--whatsapp);
   --color-whatsapp-strong: var(--whatsapp-strong);
+  --color-wallapop: var(--wallapop);
+  --color-wallapop-strong: var(--wallapop-strong);
+  --color-vinted: var(--vinted);
+  --color-vinted-strong: var(--vinted-strong);
   --color-health: #18594b;
   --color-health-strong: #10473c;
   --color-health-soft: #e8f2ef;

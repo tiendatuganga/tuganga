@@ -43,7 +43,7 @@ export function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
           aria-modal="true"
           aria-label="Buscar productos"
         >
-          <div className="mx-auto flex w-full max-w-3xl flex-1 flex-col px-6 py-8 sm:py-16">
+          <div className="mx-auto flex w-full max-w-5xl flex-1 flex-col px-6 py-8 sm:py-16">
             <div className="flex items-center justify-between">
               <span className="text-xs font-semibold uppercase tracking-[0.22em] text-tg-primary">Buscar</span>
               <button

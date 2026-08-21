@@ -1,6 +1,11 @@
 import type { Product } from "@/types";
 import { ExternalLinkIcon, WhatsAppIcon } from "@/components/ui/icons";
-import { getAvailabilityInfo, getProductExternalActions, isProductAvailable } from "@/lib/external-product";
+import {
+  CHANNEL_BUTTON_STYLES,
+  getAvailabilityInfo,
+  getProductExternalActions,
+  isProductAvailable,
+} from "@/lib/external-product";
 import { cn } from "@/lib/utils";
 
 interface ExternalProductCTAProps {
@@ -51,9 +56,9 @@ export function ExternalProductCTA({ product, variant = "primary", className }: 
             className={cn(
               "inline-flex w-full items-center justify-center gap-2 whitespace-nowrap rounded-full font-semibold transition-colors",
               variant === "compact" ? "px-4 py-2.5 text-xs" : "px-6 py-3.5 text-sm",
-              action.secondary
+              action.secondary && !isWhatsApp
                 ? "border border-tg-border bg-white text-tg-primary hover:border-tg-primary hover:bg-tg-lavender-soft"
-                : "bg-tg-primary text-white hover:bg-tg-deep"
+                : CHANNEL_BUTTON_STYLES[action.channel]
             )}
           >
             {isWhatsApp && <WhatsAppIcon className="h-4 w-4 shrink-0" />}

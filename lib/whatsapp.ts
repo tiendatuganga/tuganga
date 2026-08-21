@@ -3,10 +3,6 @@ import { formatPrice } from "@/lib/utils";
 
 const DEFAULT_WHATSAPP_NUMBER = "34614826697";
 
-function getSiteUrl() {
-  return process.env.NEXT_PUBLIC_SITE_URL ?? "https://tuganga.es";
-}
-
 /** Normaliza cualquier formato (+34 614 82 66 97, 614-826-697…) a dígitos para wa.me. */
 function sanitizeNumber(value: string | undefined): string {
   const digits = value?.replace(/\D/g, "") ?? "";
@@ -21,8 +17,21 @@ export function buildWhatsAppLink(message: string) {
   return `https://wa.me/${getWhatsAppNumber()}?text=${encodeURIComponent(message)}`;
 }
 
+/** Enlace real de la ficha del producto en la web (el mismo que genera el sitemap). */
+export function getProductPageUrl(product: Pick<Product, "slug">) {
+  const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL ?? "https://tuganga.es").replace(/\/+$/, "");
+  return `${siteUrl}/producto/${product.slug}`;
+}
+
 export function buildWhatsAppProductMessage(product: Product) {
-  return `¡Hola! Me interesa este producto:\n\n• ${product.title} — ${formatPrice(
-    product.price
-  )}\n${getSiteUrl()}/producto/${product.slug}\n\n¿Sigue disponible?`;
+  const lines = [
+    "¡Hola! Me interesa este producto:",
+    "",
+    `• ${product.title} — ${formatPrice(product.price)}`,
+    "",
+    getProductPageUrl(product),
+    "",
+    "¿Sigue disponible?",
+  ];
+  return lines.join("\n");
 }

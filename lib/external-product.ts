@@ -50,6 +50,13 @@ export function getExternalChannelName(channel: ExternalChannel): string {
   return channel === "WALLAPOP" ? "Wallapop" : channel === "VINTED" ? "Vinted" : "WhatsApp";
 }
 
+/** Colores de marca por canal para botones CTA. */
+export const CHANNEL_BUTTON_STYLES: Record<ExternalChannel, string> = {
+  WHATSAPP: "bg-whatsapp text-white hover:bg-whatsapp-strong",
+  WALLAPOP: "bg-wallapop text-white hover:bg-wallapop-strong",
+  VINTED: "bg-vinted text-white hover:bg-vinted-strong",
+};
+
 export function getProductExternalActions(product: Product): ExternalProductAction[] {
   if (!isProductAvailable(product)) return [];
 
@@ -60,7 +67,7 @@ export function getProductExternalActions(product: Product): ExternalProductActi
   if (channel === "WHATSAPP" && product.whatsappEnabled) {
     actions.push({
       channel,
-      url: configuredUrl ?? buildWhatsAppLink(buildWhatsAppProductMessage(product)),
+      url: buildWhatsAppLink(buildWhatsAppProductMessage(product)),
       label: CHANNEL_LABELS.WHATSAPP,
       secondary: false,
     });

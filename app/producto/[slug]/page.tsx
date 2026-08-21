@@ -9,6 +9,7 @@ import { ExternalProductCTA } from "@/components/product/ExternalProductCTA";
 import { RelatedProducts } from "@/components/product/RelatedProducts";
 import { CheckIcon, ExternalLinkIcon, WhatsAppIcon } from "@/components/ui/icons";
 import {
+  CHANNEL_BUTTON_STYLES,
   getAvailabilityInfo,
   getExternalChannelName,
   getProductExternalActions,
@@ -133,20 +134,18 @@ export default async function ProductoPage({ params }: { params: Promise<{ slug:
             </p>
           )}
 
-          {product.reviewed && (
-            <div className="mt-6 max-w-xl rounded-card border border-health-border bg-health-soft p-4">
-              <p className="flex items-center gap-2 text-sm font-semibold text-health-strong">
-                <span className="flex h-5 w-5 items-center justify-center rounded-full bg-health text-white">
-                  <CheckIcon className="h-3 w-3" />
-                </span>
-                Revisado por TU GANGA
-              </p>
-              <p className="mt-1.5 pl-7 text-sm leading-relaxed text-health-strong/75">
-                Comprobamos su funcionamiento antes de publicarlo.
-                {product.location && <> Revisado en {product.location}.</>}
-              </p>
-            </div>
-          )}
+          <div className="mt-6 max-w-xl rounded-card border border-health-border bg-health-soft p-4">
+            <p className="flex items-center gap-2 text-sm font-semibold text-health-strong">
+              <span className="flex h-5 w-5 items-center justify-center rounded-full bg-health text-white">
+                <CheckIcon className="h-3 w-3" />
+              </span>
+              Revisado por TU GANGA
+            </p>
+            <p className="mt-1.5 pl-7 text-sm leading-relaxed text-health-strong/75">
+              Comprobamos su funcionamiento antes de publicarlo.
+              {product.location && <> Revisado en {product.location}.</>}
+            </p>
+          </div>
 
           <div className="mt-8 max-w-xl">
             <ExternalProductCTA product={product} />
@@ -187,7 +186,10 @@ export default async function ProductoPage({ params }: { params: Promise<{ slug:
               href={primaryAction.url}
               target="_blank"
               rel="noopener noreferrer external"
-              className="ml-auto inline-flex shrink-0 items-center gap-1.5 rounded-full bg-tg-primary px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-tg-deep"
+              className={cn(
+                "ml-auto inline-flex shrink-0 items-center gap-1.5 rounded-full px-5 py-2.5 text-sm font-semibold transition-colors",
+                CHANNEL_BUTTON_STYLES[primaryAction.channel]
+              )}
             >
               {primaryAction.channel === "WHATSAPP" ? (
                 <>
