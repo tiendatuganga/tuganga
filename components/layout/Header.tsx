@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import Image from "next/image";
 import { useFavorites } from "@/context/FavoritesContext";
 import { MobileMenu } from "@/components/layout/MobileMenu";
 import { SearchOverlay } from "@/components/search/SearchOverlay";
@@ -10,6 +9,7 @@ import {
   HeartIcon,
   MenuIcon,
   SearchIcon,
+  TugangaWordmark,
 } from "@/components/ui/icons";
 import { cn } from "@/lib/utils";
 
@@ -43,22 +43,15 @@ export function Header() {
       >
         <div className="mx-auto flex h-14 max-w-7xl items-center gap-4 px-5 sm:px-8 md:h-20">
           <Link href="/" aria-label="TU GANGA — Inicio" className="shrink-0">
-            <Image
-              src="/logo.png"
-              alt="TU GANGA"
-              width={4284}
-              height={678}
-              priority
-              className="h-5 w-auto sm:h-6 md:h-8"
-            />
+            <TugangaWordmark className="h-5 w-auto text-tg-primary sm:h-6 md:h-8" />
           </Link>
 
-          <div className="mx-auto hidden w-full max-w-md md:block">
+          <div className="hidden min-w-0 flex-1 md:block">
             <button
               type="button"
               onClick={() => setSearchOpen(true)}
               aria-label="Buscar productos, marcas o categorías"
-              className="group flex w-full items-center gap-3 rounded-full border border-tg-border bg-tg-offwhite py-2.5 pl-5 pr-4 text-left transition-colors hover:border-tg-lavender hover:bg-white focus-visible:outline-2"
+              className="group flex w-full items-center gap-3 rounded-full border border-tg-border bg-tg-offwhite py-2.5 pl-5 pr-4 text-left shadow-soft transition-[border-color,background-color,box-shadow] duration-200 hover:border-tg-lavender hover:bg-white hover:shadow-card focus-visible:outline-2 motion-reduce:transition-none"
             >
               <SearchIcon className="h-4 w-4 shrink-0 text-tg-primary/60 transition-colors group-hover:text-tg-primary" />
               <span className="truncate text-sm text-tg-ink/45">Buscar productos, marcas o categorías...</span>

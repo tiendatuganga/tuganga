@@ -56,24 +56,20 @@ const FILTERS: FilterPill[] = [
   },
 ];
 
-const FILTER_META: Record<CatalogFilter, { eyebrow: string; title: string; description: string }> = {
+const FILTER_META: Record<CatalogFilter, { title: string; description: string }> = {
   todos: {
-    eyebrow: "Catálogo completo",
     title: "Todas las gangas",
     description: "Novedades, ofertas y segunda vuelta mezcladas. Usa las píldoras para filtrar.",
   },
   nuevos: {
-    eyebrow: "Recién llegados",
     title: "Nuevos",
     description: "Lo último que ha entrado en TU GANGA, seleccionado esta semana.",
   },
   ofertas: {
-    eyebrow: "Precio rebajado",
     title: "Ofertas",
     description: "Gangas con descuento directo. Cuando vuelan, vuelan.",
   },
   "segunda-vuelta": {
-    eyebrow: "Revisados",
     title: "Segunda vuelta",
     description: "Productos revisados que todavía tienen mucho que ofrecer.",
   },
@@ -170,12 +166,9 @@ export function HomeCatalog({ products }: { products: Product[] }) {
         </div>
       </div>
 
-      <section className="mx-auto max-w-7xl px-5 pb-16 pt-10 sm:px-8 sm:pb-20">
+      <section className="mx-auto max-w-7xl px-5 pb-6 pt-10 sm:px-8 sm:pb-7">
         <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
           <div className="max-w-2xl">
-            <span className="mb-3 block text-xs font-semibold uppercase tracking-[0.22em] text-tg-primary">
-              {meta.eyebrow}
-            </span>
             <h2 className="font-display text-3xl font-bold tracking-tight text-tg-ink sm:text-4xl">{meta.title}</h2>
             <p className="mt-3 text-base leading-relaxed text-tg-muted">{meta.description}</p>
           </div>
@@ -186,6 +179,16 @@ export function HomeCatalog({ products }: { products: Product[] }) {
 
         <div className="mt-8 sm:mt-10">
           <ProductGrid products={visible} columns={columns} />
+        </div>
+
+        <div className="mt-10 flex justify-center sm:mt-12">
+          <Link
+            href="/productos"
+            className="group inline-flex items-center gap-1.5 text-sm font-semibold text-tg-primary transition-colors duration-200 hover:text-tg-deep"
+          >
+            Ver más gangas
+            <ArrowIcon className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5 motion-reduce:transition-none motion-reduce:group-hover:translate-x-0" />
+          </Link>
         </div>
       </section>
     </>

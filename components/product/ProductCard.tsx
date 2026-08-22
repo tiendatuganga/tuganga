@@ -13,7 +13,7 @@ export function ProductCard({ product }: { product: Product }) {
   const [primaryImage, secondaryImage] = product.images;
 
   return (
-    <article className="group relative flex h-full flex-col overflow-hidden rounded-card border border-tg-border bg-white transition-[border-color,box-shadow] duration-200 hover:border-tg-lavender hover:shadow-card">
+    <article className="group relative flex h-full flex-col">
       <Link
         href={`/producto/${product.slug}`}
         className="absolute inset-0 z-10"
@@ -22,12 +22,12 @@ export function ProductCard({ product }: { product: Product }) {
         <span className="sr-only">{product.title}</span>
       </Link>
 
-      <div className="relative aspect-square overflow-hidden bg-tg-offwhite">
+      <div className="relative aspect-square overflow-hidden rounded-card bg-tg-offwhite">
         <Image
           src={primaryImage.url}
           alt={primaryImage.alt}
           fill
-          className="object-cover transition-transform duration-500 ease-out group-hover:scale-105"
+          className="object-cover transition-transform duration-300 ease-out group-hover:scale-[1.03] motion-reduce:transition-none motion-reduce:group-hover:scale-100"
           sizes="(min-width: 1024px) 23vw, (min-width: 640px) 33vw, 50vw"
         />
         {secondaryImage && (
@@ -35,28 +35,33 @@ export function ProductCard({ product }: { product: Product }) {
             src={secondaryImage.url}
             alt={secondaryImage.alt}
             fill
-            className="object-cover opacity-0 transition-opacity duration-500 ease-out group-hover:opacity-100"
+            className="object-cover opacity-0 transition-opacity duration-500 ease-out group-hover:opacity-100 motion-reduce:transition-none"
             sizes="(min-width: 1024px) 23vw, (min-width: 640px) 33vw, 50vw"
           />
         )}
-        {badge && <ProductBadge status={badge} className="absolute left-4 top-4" />}
-        <FavoriteToggle product={product} className="absolute right-3 top-3 z-20" />
+        {badge && <ProductBadge status={badge} className="absolute left-3 top-3" />}
+        <FavoriteToggle product={product} className="absolute right-2.5 top-2.5 z-20" />
+        <span
+          aria-hidden="true"
+          className="pointer-events-none absolute bottom-3 left-3 z-10 hidden translate-y-1 items-center gap-1 rounded-full bg-white/95 px-3 py-1.5 text-xs font-semibold text-tg-primary opacity-0 shadow-soft backdrop-blur transition-[opacity,transform] duration-200 group-hover:translate-y-0 group-hover:opacity-100 motion-reduce:transition-opacity motion-reduce:group-hover:translate-y-0 lg:inline-flex"
+        >
+          Ver producto
+          <ArrowIcon className="h-3 w-3" />
+        </span>
       </div>
 
-      <div className="flex flex-1 flex-col gap-1 p-4">
+      <div className="flex flex-col pt-3">
         <span className="text-[11px] font-medium uppercase tracking-wide text-tg-ink/40">
           {product.category}
         </span>
-        <h3 className="line-clamp-2 min-h-10 text-sm font-medium leading-5 text-tg-ink transition-colors group-hover:text-tg-primary">
+        <h3 className="mt-1 line-clamp-2 text-sm font-semibold leading-5 text-tg-ink transition-colors duration-200 group-hover:text-tg-primary">
           {product.title}
         </h3>
-        <div className="mt-auto flex items-center justify-between gap-2 pt-1.5">
-          <ProductPrice price={product.price} compareAtPrice={product.compareAtPrice} />
-          <span className="hidden shrink-0 items-center gap-1 text-xs font-semibold text-tg-primary opacity-0 transition-opacity duration-200 group-hover:opacity-100 lg:inline-flex">
-            Ver ganga
-            <ArrowIcon className="h-3.5 w-3.5" />
-          </span>
-        </div>
+        <ProductPrice
+          price={product.price}
+          compareAtPrice={product.compareAtPrice}
+          className="mt-3 text-xs"
+        />
       </div>
     </article>
   );

@@ -6,17 +6,17 @@
   --surface: #ffffff;
   --muted: #706a73;
   --border: #e6dfe8;
-  --primary: #592570;
-  --primary-strong: #492169;
+  --primary: #782c7c;
+  --primary-strong: #5e2374;
   --primary-soft: #f1eaf4;
-  --accent: #592570;
-  --accent-strong: #492169;
+  --accent: #782c7c;
+  --accent-strong: #5e2374;
   --accent-soft: #f1eaf4;
   --accent-border: #c6aeca;
   --radius-control: 999px;
   --radius-card: 1rem;
   --radius-panel: 1.5rem;
-  --shadow-soft: 0 8px 24px -18px rgba(73, 33, 105, 0.28);
+  --shadow-soft: 0 8px 24px -18px rgba(94, 35, 116, 0.28);
   --shadow-card: 0 14px 32px -24px rgba(23, 19, 26, 0.3);
   --health-accent: #18594b;
   --health-accent-strong: #10473c;
@@ -38,10 +38,10 @@
 }
 
 @theme {
-  --color-tg-primary: #592570;
-  --color-tg-deep: #492169;
-  --color-tg-dark: #3d1b5c;
-  --color-tg-purple: #71297a;
+  --color-tg-primary: #782c7c;
+  --color-tg-deep: #5e2374;
+  --color-tg-dark: #442069;
+  --color-tg-purple: #5e2374;
   --color-tg-lavender: #c6aeca;
   --color-tg-lavender-soft: #f1eaf4;
   --color-tg-white: #ffffff;
@@ -66,10 +66,11 @@
 
   --radius-card: 1rem;
   --radius-panel: 1.5rem;
-  --shadow-soft: 0 8px 24px -18px rgba(73, 33, 105, 0.28);
+  --shadow-soft: 0 8px 24px -18px rgba(94, 35, 116, 0.28);
   --shadow-card: 0 14px 32px -24px rgba(23, 19, 26, 0.3);
 
   --font-display: var(--font-jakarta);
+  --font-accent: var(--font-instrument);
 }
 
 @theme inline {
@@ -134,6 +135,74 @@ body {
 @media (prefers-reduced-motion: reduce) {
   .faq-answer {
     animation: none;
+  }
+}
+
+.accent-word {
+  position: relative;
+  display: inline-block;
+  white-space: nowrap;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .accent-word {
+    animation: accent-word-in 0.5s ease-out both;
+  }
+
+  .accent-word::after {
+    content: "";
+    position: absolute;
+    left: -0.05em;
+    right: -0.05em;
+    bottom: -0.06em;
+    height: 0.11em;
+    border-radius: 999px;
+    background: var(--primary);
+    transform-origin: left center;
+    animation: accent-underline-draw 0.7s cubic-bezier(0.65, 0, 0.35, 1) 0.4s both;
+  }
+}
+
+@keyframes accent-word-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px) rotate(-2deg);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) rotate(0deg);
+  }
+}
+
+@keyframes accent-underline-draw {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .reveal-group[data-reveal="pending"] .reveal-item {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+
+  .reveal-group[data-reveal="done"] .reveal-item {
+    animation: reveal-in 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation-delay: calc(var(--reveal-index, 0) * 110ms);
+  }
+}
+
+@keyframes reveal-in {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 

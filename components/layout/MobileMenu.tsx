@@ -1,9 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
-import { CloseIcon, BoltIcon, LoopIcon, SparkleIcon } from "@/components/ui/icons";
+import { CloseIcon, BoltIcon, LoopIcon, SparkleIcon, TugangaWordmark } from "@/components/ui/icons";
 import { NAV_LINKS, PRIMARY_NAV, QUICK_PILLS } from "@/components/layout/nav-links";
 import { cn } from "@/lib/utils";
 
@@ -36,14 +35,7 @@ export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
         >
           <div className="flex items-center justify-between">
             <Link href="/" onClick={onClose} aria-label="TU GANGA — Inicio">
-              <Image
-                src="/logo.png"
-                alt="TU GANGA"
-                width={4284}
-                height={678}
-                priority
-                className="h-5 w-auto"
-              />
+              <TugangaWordmark className="h-5 w-auto text-tg-primary" />
             </Link>
             <button
               type="button"

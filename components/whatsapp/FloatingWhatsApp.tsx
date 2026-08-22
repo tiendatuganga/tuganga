@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { CloseIcon, WhatsAppIcon } from "@/components/ui/icons";
+import { CloseIcon, IsotipoTG, WhatsAppIcon } from "@/components/ui/icons";
 import { buildWhatsAppLink } from "@/lib/whatsapp";
 
 export function FloatingWhatsApp() {
@@ -40,8 +40,8 @@ export function FloatingWhatsApp() {
             className="w-[min(20rem,calc(100vw-2rem))] origin-bottom-right overflow-hidden rounded-2xl border border-tg-border bg-white shadow-card"
           >
             <div className="flex items-center gap-3 bg-whatsapp px-4 py-3 text-white">
-              <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-white/15">
-                <WhatsAppIcon className="h-5 w-5" />
+              <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-white">
+                <IsotipoTG className="h-[18px] w-auto text-tg-primary" />
               </span>
               <div className="min-w-0 flex-1">
                 <p className="text-sm font-semibold leading-tight">TU GANGA</p>

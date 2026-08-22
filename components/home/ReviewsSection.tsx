@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useEffect, useRef, type CSSProperties } from "react";
 import { ArrowIcon, StarIcon } from "@/components/ui/icons";
 
 const REVIEWS = [
@@ -31,9 +31,12 @@ const REVIEWS = [
   },
 ] as const;
 
-function ReviewCard({ name, location, text }: (typeof REVIEWS)[number]) {
+function ReviewCard({ name, location, text, index }: (typeof REVIEWS)[number] & { index: number }) {
   return (
-    <article className="w-[280px] shrink-0 snap-start rounded-card border border-tg-border bg-white p-6 sm:w-[320px]">
+    <article
+      className="reveal-item w-[280px] shrink-0 snap-start rounded-card border border-tg-border bg-white p-6 sm:w-[320px]"
+      style={{ "--reveal-index": index } as CSSProperties}
+    >
       <div className="flex gap-1" aria-label="5 de 5 estrellas">
         {Array.from({ length: 5 }).map((_, index) => (
           <StarIcon key={index} className="h-4 w-4 fill-current text-[#f5a623]" />
@@ -87,20 +90,39 @@ function RatingSummary({ rating }: { rating: number }) {
 
 export function ReviewsSection() {
   const trackRef = useRef<HTMLDivElement>(null);
+  const sectionRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const node = sectionRef.current;
+    if (!node || typeof IntersectionObserver === "undefined") return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          node.setAttribute("data-reveal", entry.isIntersecting ? "done" : "pending");
+        }
+      },
+      { threshold: 0.15 },
+    );
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, []);
 
   function scrollByCard(direction: 1 | -1) {
     trackRef.current?.scrollBy({ left: direction * 344, behavior: "smooth" });
   }
 
   return (
-    <section className="pt-2 pb-8 sm:pb-10" aria-labelledby="reviews-heading">
+    <section
+      ref={sectionRef}
+      data-reveal="pending"
+      className="reveal-group pt-5 pb-8 sm:pt-6 sm:pb-10"
+      aria-labelledby="reviews-heading"
+    >
       <div className="mx-auto max-w-7xl px-5 sm:px-8">
         <div className="flex flex-wrap items-end justify-between gap-4">
           <div>
-            <span className="text-[11px] font-bold uppercase tracking-[0.18em] text-tg-primary">
-              Reseñas
-            </span>
-            <h2 id="reviews-heading" className="mt-1.5 font-display text-2xl font-bold tracking-tight text-tg-ink sm:text-3xl">
+            <h2 id="reviews-heading" className="font-display text-2xl font-bold tracking-tight text-tg-ink sm:text-3xl">
               Lo que dicen los clientes
             </h2>
             <RatingSummary rating={AVERAGE_RATING} />
@@ -129,8 +151,8 @@ export function ReviewsSection() {
         ref={trackRef}
         className="mt-8 flex snap-x snap-mandatory gap-4 overflow-x-auto px-5 pb-2 [scroll-padding-inline:1.25rem] [scrollbar-width:none] sm:px-8 sm:[scroll-padding-inline:2rem] lg:px-[max(2rem,calc((100vw-80rem)/2+2rem))] lg:[scroll-padding-inline:max(2rem,calc((100vw-80rem)/2+2rem))] [&::-webkit-scrollbar]:hidden"
       >
-        {REVIEWS.map((review) => (
-          <ReviewCard key={review.name} {...review} />
+        {REVIEWS.map((review, index) => (
+          <ReviewCard key={review.name} index={index} {...review} />
         ))}
       </div>
     </section>

@@ -3,7 +3,7 @@ import { ArrowIcon, HeartIcon } from "@/components/ui/icons";
 
 export function SaludBanner() {
   return (
-    <section className="mx-auto max-w-7xl px-5 pt-14 pb-12 sm:px-8 sm:pt-16 sm:pb-14">
+    <section className="mx-auto max-w-7xl px-5 pt-10 pb-12 sm:px-8 sm:pt-12 sm:pb-14">
       <Link
         href="/salud"
         className="group flex flex-col gap-6 rounded-panel bg-health p-7 shadow-card transition-[background-color,transform] duration-200 hover:-translate-y-0.5 hover:bg-health-strong motion-reduce:transition-none motion-reduce:hover:translate-y-0 sm:flex-row sm:items-center sm:justify-between sm:p-10"
@@ -13,10 +13,7 @@ export function SaludBanner() {
             <HeartIcon className="h-6 w-6" />
           </span>
           <div>
-            <span className="text-[11px] font-bold uppercase tracking-[0.18em] text-white/70">
-              Vertical Salud
-            </span>
-            <h2 className="mt-1.5 font-display text-2xl font-bold tracking-tight text-white sm:text-3xl">
+            <h2 className="font-display text-2xl font-bold tracking-tight text-white sm:text-3xl">
               Bienestar revisado a mano
             </h2>
             <p className="mt-2 max-w-xl text-sm leading-relaxed text-white/75">

@@ -22,7 +22,7 @@ export function BrandIntro() {
   return (
     <section
       aria-label="Cómo funciona TU GANGA"
-      className="mx-auto max-w-7xl px-5 pb-4 pt-10 sm:px-8 sm:pb-5 sm:pt-12"
+      className="mx-auto max-w-7xl px-5 pb-4 pt-12 sm:px-8 sm:pb-5 sm:pt-14"
     >
       <p className="max-w-2xl font-display text-2xl font-bold leading-tight tracking-tight text-tg-ink sm:text-3xl">
         Encuentra, compara{" "}
