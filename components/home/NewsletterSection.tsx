@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
+import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
 import { ArrowIcon, IsotipoTG } from "@/components/ui/icons";
 
@@ -80,6 +81,28 @@ export function NewsletterSection() {
                     Conseguir envío gratis
                     <ArrowIcon className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5 motion-reduce:transition-none motion-reduce:group-hover:translate-x-0" />
                   </button>
+                </div>
+                <div className="mt-4 flex items-start gap-2.5">
+                  <input
+                    id="newsletter-consent"
+                    name="consent"
+                    required
+                    type="checkbox"
+                    className="mt-0.5 h-4 w-4 shrink-0 cursor-pointer accent-white"
+                  />
+                  <label
+                    htmlFor="newsletter-consent"
+                    className="cursor-pointer text-xs leading-relaxed text-white/75"
+                  >
+                    Acepto recibir promociones de TU GANGA y he leído la{" "}
+                    <Link
+                      href="/legal/privacidad"
+                      className="font-semibold text-white underline underline-offset-2 transition-colors hover:text-white/85"
+                    >
+                      política de privacidad
+                    </Link>
+                    . Puedes darte de baja en cualquier momento desde cada email.
+                  </label>
                 </div>
               </motion.form>
             )}

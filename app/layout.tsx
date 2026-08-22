@@ -2,10 +2,12 @@ import type { Metadata } from "next";
 import { Instrument_Serif, Inter, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import { FavoritesProvider } from "@/context/FavoritesContext";
+import { CookieConsentProvider } from "@/context/CookieConsentContext";
 import { TopBanner } from "@/components/layout/TopBanner";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { FavoritesDrawer } from "@/components/favorites/FavoritesDrawer";
+import { CookieSettingsPanel } from "@/components/cookies/CookieSettingsPanel";
 import { FloatingWhatsApp } from "@/components/whatsapp/FloatingWhatsApp";
 
 const inter = Inter({
@@ -55,14 +57,17 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="es" className={`${inter.variable} ${jakarta.variable} ${instrument.variable} h-full antialiased`}>
       <body className="flex min-h-full flex-col bg-tg-offwhite text-tg-ink">
-        <FavoritesProvider>
-          <TopBanner />
-          <Header />
-          <main className="flex-1">{children}</main>
-          <Footer />
-          <FavoritesDrawer />
-          <FloatingWhatsApp />
-        </FavoritesProvider>
+        <CookieConsentProvider>
+          <FavoritesProvider>
+            <TopBanner />
+            <Header />
+            <main className="flex-1">{children}</main>
+            <Footer />
+            <FavoritesDrawer />
+            <FloatingWhatsApp />
+            <CookieSettingsPanel />
+          </FavoritesProvider>
+        </CookieConsentProvider>
       </body>
     </html>
   );

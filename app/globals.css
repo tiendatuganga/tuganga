@@ -215,3 +215,107 @@ body {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* ---- Páginas legales ---- */
+
+.legal-prose section + section {
+  margin-top: 3.5rem;
+}
+
+.legal-prose h2 {
+  font-family: var(--font-display);
+  font-size: 1.375rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--color-tg-ink);
+}
+
+.legal-prose p,
+.legal-prose li {
+  line-height: 1.75;
+  color: color-mix(in srgb, var(--color-tg-ink) 75%, transparent);
+}
+
+.legal-prose p strong {
+  font-weight: 600;
+  color: var(--color-tg-ink);
+}
+
+.legal-prose .pending {
+  display: inline-block;
+  border-radius: 0.5rem;
+  border: 1px dashed var(--color-tg-lavender);
+  background: var(--color-tg-lavender-soft);
+  padding: 0.125rem 0.5rem;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--color-tg-deep);
+}
+
+.legal-prose ul {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.legal-prose ul li {
+  position: relative;
+  padding-left: 1.25rem;
+}
+
+.legal-prose ul li::before {
+  content: "";
+  position: absolute;
+  left: 0.25rem;
+  top: 0.7em;
+  height: 5px;
+  width: 5px;
+  border-radius: 999px;
+  background: var(--color-tg-primary);
+}
+
+.legal-prose ol {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+  counter-reset: legal-step;
+}
+
+.legal-prose ol > li {
+  position: relative;
+  padding-left: 2.25rem;
+  counter-increment: legal-step;
+}
+
+.legal-prose ol > li::before {
+  content: counter(legal-step);
+  position: absolute;
+  left: 0;
+  top: 0.05em;
+  display: grid;
+  place-items: center;
+  height: 1.5rem;
+  width: 1.5rem;
+  border-radius: 999px;
+  background: var(--color-tg-primary);
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+.legal-prose a {
+  font-weight: 500;
+  color: var(--color-tg-primary);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  transition: color 150ms ease;
+}
+
+.legal-prose a:hover {
+  color: var(--color-tg-deep);
+}

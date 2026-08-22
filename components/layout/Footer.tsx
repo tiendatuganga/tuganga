@@ -1,5 +1,7 @@
 import Link from "next/link";
 import { TugangaWordmark } from "@/components/ui/icons";
+import { CookieSettingsButton } from "@/components/cookies/CookieSettingsPanel";
+import { LEGAL_PAGES } from "@/lib/legal";
 
 const FOOTER_LINKS = [
   {
@@ -14,7 +16,7 @@ const FOOTER_LINKS = [
   {
     title: "Información",
     links: [
-      { label: "Cómo funciona", href: "/" },
+      { label: "Cómo funciona", href: "/legal/como-funciona" },
       { label: "Canales de compra", href: "/" },
       { label: "Contacto", href: "/" },
     ],
@@ -25,7 +27,7 @@ export function Footer() {
   return (
     <footer className="mt-24 border-t border-tg-border bg-tg-offwhite">
       <div className="mx-auto max-w-7xl px-5 py-16 sm:px-8">
-        <div className="grid gap-12 lg:grid-cols-[1.4fr_1fr_1fr]">
+        <div className="grid gap-12 lg:grid-cols-[1.4fr_1fr_1fr_1fr]">
           <div>
             <Link href="/" className="inline-flex items-center text-tg-primary">
               <TugangaWordmark className="h-6 w-auto" />
@@ -51,6 +53,22 @@ export function Footer() {
               </ul>
             </div>
           ))}
+
+          <div>
+            <h3 className="text-xs font-semibold uppercase tracking-[0.2em] text-tg-ink/40">Condiciones legales</h3>
+            <ul className="mt-4 flex flex-col gap-3">
+              {LEGAL_PAGES.map((page) => (
+                <li key={page.href}>
+                  <Link href={page.href} className="text-sm text-tg-ink/70 transition-colors hover:text-tg-primary">
+                    {page.label}
+                  </Link>
+                </li>
+              ))}
+              <li>
+                <CookieSettingsButton className="text-left text-sm text-tg-ink/70 transition-colors hover:text-tg-primary" />
+              </li>
+            </ul>
+          </div>
         </div>
 
         <div className="mt-16 flex flex-col items-center justify-between gap-4 border-t border-tg-border pt-8 text-xs text-tg-muted sm:flex-row">
