@@ -1,7 +1,7 @@
 import { cn, discountPercent, formatPrice } from "@/lib/utils";
 
 interface ProductPriceProps {
-  price: number;
+  price: number | null;
   compareAtPrice?: number;
   size?: "sm" | "md" | "lg";
   className?: string;

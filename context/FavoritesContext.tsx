@@ -3,7 +3,6 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import type { Product } from "@/types";
 import { favoritesService } from "@/lib/services/favorites-service";
-import { productService } from "@/lib/services/product-service";
 
 interface FavoritesContextValue {
   products: Product[];
@@ -19,12 +18,12 @@ interface FavoritesContextValue {
 
 const FavoritesContext = createContext<FavoritesContextValue | null>(null);
 
-export function FavoritesProvider({ children }: { children: ReactNode }) {
+export function FavoritesProvider({ children, catalog }: { children: ReactNode; catalog: Product[] }) {
   const [productIds, setProductIds] = useState<string[]>([]);
   const [products, setProducts] = useState<Product[]>([]);
   const [isDrawerOpen, setDrawerOpen] = useState(false);
   const [isLoading, setLoading] = useState(true);
-  const catalogRef = useRef<Product[]>([]);
+  const catalogRef = useRef<Product[]>(catalog);
 
   const resolveProducts = useCallback((ids: string[]): Product[] => {
     const byId = new Map(catalogRef.current.map((product) => [product.id, product]));
@@ -32,13 +31,13 @@ export function FavoritesProvider({ children }: { children: ReactNode }) {
   }, []);
 
   useEffect(() => {
-    Promise.all([productService.getAllProducts(), favoritesService.getIds()]).then(([all, ids]) => {
-      catalogRef.current = all;
+    favoritesService.getIds().then((ids) => {
+      catalogRef.current = catalog;
       setProductIds(ids);
       setProducts(resolveProducts(ids));
       setLoading(false);
     });
-  }, [resolveProducts]);
+  }, [catalog, resolveProducts]);
 
   const isFavorite = useCallback(
     (productId: string) => productIds.includes(productId),

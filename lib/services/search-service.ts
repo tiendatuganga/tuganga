@@ -1,14 +1,23 @@
 import type { Product } from "@/types";
-import { productService } from "@/lib/services/product-service";
+import { normalizeText } from "@/lib/utils";
 
 export interface SearchService {
-  search(query: string): Promise<Product[]>;
+  search(products: Product[], query: string): Product[];
 }
 
-class MockSearchService implements SearchService {
-  async search(query: string): Promise<Product[]> {
-    return productService.searchProducts(query);
+class CatalogSearchService implements SearchService {
+  search(products: Product[], query: string): Product[] {
+    const normalized = normalizeText(query);
+    if (!normalized) return [];
+
+    return products.filter(
+      (product) =>
+        normalizeText(product.title).includes(normalized) ||
+        normalizeText(product.brand ?? "").includes(normalized) ||
+        normalizeText(product.category).includes(normalized) ||
+        normalizeText(product.subcategory ?? "").includes(normalized)
+    );
   }
 }
 
-export const searchService: SearchService = new MockSearchService();
+export const searchService: SearchService = new CatalogSearchService();

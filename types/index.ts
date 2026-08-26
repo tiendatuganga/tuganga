@@ -12,10 +12,15 @@ export interface Product {
   title: string;
   slug: string;
   description: string;
-  price: number;
+  price: number | null;
   compareAtPrice?: number;
   images: ProductImage[];
+  featuredImage?: ProductImage;
   category: string;
+  subcategory?: string;
+  brand?: string;
+  shortDescription?: string;
+  features?: string[];
   status: ProductStatus[];
   tags: string[];
   inventory: number;
@@ -29,6 +34,7 @@ export interface Product {
   delivery?: string;
   featured: boolean;
   secondLife: boolean;
+  order?: number;
   createdAt: string;
 }
 

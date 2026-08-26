@@ -12,11 +12,12 @@ import {
   TugangaWordmark,
 } from "@/components/ui/icons";
 import { cn } from "@/lib/utils";
+import type { Product } from "@/types";
 
 const iconButton =
   "relative rounded-full p-2.5 text-tg-ink/70 transition-colors hover:bg-tg-lavender-soft hover:text-tg-primary";
 
-export function Header() {
+export function Header({ products }: { products: Product[] }) {
   const { favoriteCount, openDrawer: openFavorites } = useFavorites();
   const [isScrolled, setScrolled] = useState(false);
   const [isSearchOpen, setSearchOpen] = useState(false);
@@ -92,7 +93,7 @@ export function Header() {
         </div>
       </header>
 
-      <SearchOverlay isOpen={isSearchOpen} onClose={() => setSearchOpen(false)} />
+      <SearchOverlay products={products} isOpen={isSearchOpen} onClose={() => setSearchOpen(false)} />
       <MobileMenu isOpen={isMenuOpen} onClose={() => setMenuOpen(false)} />
     </>
   );

@@ -12,9 +12,10 @@ import type { Product } from "@/types";
 interface SearchOverlayProps {
   isOpen: boolean;
   onClose: () => void;
+  products: Product[];
 }
 
-export function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
+export function SearchOverlay({ isOpen, onClose, products }: SearchOverlayProps) {
   const [query, setQuery] = useState("");
   const [results, setResults] = useState<Product[]>([]);
 
@@ -25,10 +26,10 @@ export function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
 
   useEffect(() => {
     const handle = window.setTimeout(() => {
-      searchService.search(query).then(setResults);
+      setResults(searchService.search(products, query));
     }, 150);
     return () => window.clearTimeout(handle);
-  }, [query]);
+  }, [products, query]);
 
   return (
     <AnimatePresence>

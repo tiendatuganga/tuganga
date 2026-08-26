@@ -9,6 +9,7 @@ import { Footer } from "@/components/layout/Footer";
 import { FavoritesDrawer } from "@/components/favorites/FavoritesDrawer";
 import { CookieSettingsPanel } from "@/components/cookies/CookieSettingsPanel";
 import { FloatingWhatsApp } from "@/components/whatsapp/FloatingWhatsApp";
+import { productService } from "@/lib/services/product-service";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -53,14 +54,16 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({ children }: LayoutProps<"/">) {
+export default async function RootLayout({ children }: LayoutProps<"/">) {
+  const products = await productService.getAllProducts();
+
   return (
     <html lang="es" className={`${inter.variable} ${jakarta.variable} ${instrument.variable} h-full antialiased`}>
       <body className="flex min-h-full flex-col bg-tg-offwhite text-tg-ink">
         <CookieConsentProvider>
-          <FavoritesProvider>
+          <FavoritesProvider catalog={products}>
             <TopBanner />
-            <Header />
+            <Header products={products} />
             <main className="flex-1">{children}</main>
             <Footer />
             <FavoritesDrawer />

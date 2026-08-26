@@ -5,15 +5,16 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-export function formatPrice(amount: number) {
+export function formatPrice(amount: number | null) {
+  if (amount === null || !Number.isFinite(amount)) return "Consultar precio";
   return new Intl.NumberFormat("es-ES", {
     style: "currency",
     currency: "EUR",
   }).format(amount);
 }
 
-export function discountPercent(price: number, compareAtPrice?: number) {
-  if (!compareAtPrice || compareAtPrice <= price) return null;
+export function discountPercent(price: number | null, compareAtPrice?: number) {
+  if (price === null || !compareAtPrice || compareAtPrice <= price) return null;
   return Math.round(((compareAtPrice - price) / compareAtPrice) * 100);
 }
 
