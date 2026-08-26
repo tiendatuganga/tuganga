@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/Button";
 import { HeartIcon, SparkleIcon } from "@/components/ui/icons";
 import { cn, formatPrice } from "@/lib/utils";
 
-const AUTOPLAY_MS = 7000;
+const AUTOPLAY_MS = 4000;
 
 const HEALTH_BG_SRC =
   "https://images.pexels.com/photos/7216285/pexels-photo-7216285.jpeg?auto=compress&cs=tinysrgb&w=2000";
@@ -59,7 +59,38 @@ function HeroSlide({ active, children }: { active: boolean; children: ReactNode 
 }
 
 const slideContentClasses =
-  "relative z-10 mx-auto flex h-full w-full max-w-4xl flex-col items-center justify-center px-5 py-14 text-center sm:px-8 sm:text-left lg:mx-10 lg:items-start";
+  "relative z-10 mx-auto flex h-full w-full max-w-4xl flex-col items-center justify-center px-5 py-10 text-center sm:px-8 sm:text-left lg:mx-10 lg:items-start xl:py-14";
+
+function MobileProductCarousel({ active }: { active: boolean }) {
+  return (
+    <div
+      className="mt-6 w-full max-w-md xl:hidden"
+      aria-label="Productos destacados"
+    >
+      <div className="flex snap-x snap-mandatory gap-3 overflow-x-auto overscroll-x-contain pb-1 touch-pan-x [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+        {FLOATING_PRODUCTS.map((product) => (
+          <Link
+            key={product.href}
+            href={product.href}
+            tabIndex={active ? 0 : -1}
+            className="group relative aspect-square w-[36%] shrink-0 snap-start overflow-hidden rounded-card border border-white/20 shadow-card transition-transform duration-150 active:scale-[0.98] motion-reduce:transition-none"
+          >
+            <Image
+              src={product.src}
+              alt={product.alt}
+              fill
+              sizes="(max-width: 1279px) 36vw, 1px"
+              className="object-cover"
+            />
+            <span className="absolute bottom-2 right-2 rounded-full bg-tg-primary px-2.5 py-1 text-xs font-bold text-white">
+              {formatPrice(product.price)}
+            </span>
+          </Link>
+        ))}
+      </div>
+    </div>
+  );
+}
 
 export function Hero() {
   const reduceMotion = useReducedMotion();
@@ -84,7 +115,7 @@ export function Hero() {
     <section
       aria-roledescription="carrusel"
       aria-label="Destacados de TU GANGA"
-      className="relative min-h-[480px] overflow-hidden bg-tg-dark sm:min-h-[520px] lg:min-h-[560px]"
+      className="relative min-h-[620px] overflow-hidden bg-tg-dark sm:min-h-[640px] xl:min-h-[560px]"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
       onFocus={() => setPaused(true)}
@@ -121,16 +152,16 @@ export function Hero() {
               <HeartIcon className="h-3.5 w-3.5" />
               Vertical Salud · Revisado en Berja
             </span>
-            <h1 className="mt-6 font-display text-4xl font-extrabold leading-[1.05] tracking-tight text-white sm:text-5xl lg:text-6xl">
+            <h1 className="mt-4 font-display text-4xl font-extrabold leading-[1.05] tracking-tight text-white sm:text-5xl lg:text-6xl xl:mt-6">
               TU SALUD TAMBIÉN
               <br />
               TIENE GANGA.
             </h1>
-            <p className="mt-6 max-w-xl text-base leading-relaxed text-white/85 sm:text-lg">
+            <p className="mt-4 max-w-xl text-base leading-relaxed text-white/85 sm:text-lg xl:mt-6">
               Presoterapia, fototerapia y estética profesional revisadas pieza a pieza.
               Funcionamiento comprobado y precios de outlet.
             </p>
-            <div className="mt-8 flex flex-wrap justify-center gap-4 sm:justify-start">
+            <div className="mt-5 flex flex-wrap justify-center gap-4 sm:justify-start xl:mt-8">
               <Button
                 href="/salud"
                 className="bg-health text-white hover:bg-health-strong"
@@ -154,16 +185,16 @@ export function Hero() {
               <SparkleIcon className="h-3.5 w-3.5" />
               Selección renovada cada semana
             </span>
-            <h1 className="mt-6 font-display text-4xl font-extrabold leading-[1.05] tracking-tight text-white sm:text-5xl lg:text-6xl">
+            <h1 className="mt-4 font-display text-4xl font-extrabold leading-[1.05] tracking-tight text-white sm:text-5xl lg:text-6xl xl:mt-6">
               ENCUENTRA TU
               <br />
               PRÓXIMA GANGA.
             </h1>
-            <p className="mt-6 max-w-xl text-base leading-relaxed text-white/85 sm:text-lg">
+            <p className="mt-4 max-w-xl text-base leading-relaxed text-white/85 sm:text-lg xl:mt-6">
               Productos nuevos, segunda vuelta y oportunidades seleccionadas para ti. Encuentra el
               tuyo y elige dónde comprarlo.
             </p>
-            <div className="mt-8 flex flex-wrap justify-center gap-4 sm:justify-start">
+            <div className="mt-5 flex flex-wrap justify-center gap-4 sm:justify-start xl:mt-8">
               <Button
                 href="/productos"
                 className="bg-white text-tg-primary hover:bg-tg-lavender-soft"
@@ -178,6 +209,7 @@ export function Hero() {
                 Segunda vuelta
               </Button>
             </div>
+            <MobileProductCarousel active={active === 1} />
           </div>
         </motion.div>
         <div className="absolute right-64 top-1/2 z-10 hidden -translate-y-1/2 grid-cols-2 gap-5 xl:grid">
@@ -209,7 +241,7 @@ export function Hero() {
         </div>
       </HeroSlide>
 
-      <div className="absolute inset-x-0 bottom-6 z-20">
+      <div className="absolute inset-x-0 bottom-4 z-20 xl:bottom-6">
         <div className="mx-auto flex w-full max-w-4xl justify-center px-5 sm:px-8 lg:mx-10 lg:justify-start">
           <div className="flex items-center gap-2" role="tablist" aria-label="Elegir diapositiva del hero">
             {SLIDE_LABELS.map((label, index) => (
