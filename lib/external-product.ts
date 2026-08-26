@@ -1,5 +1,5 @@
 import type { ExternalChannel, Product } from "@/types";
-import { buildWhatsAppLink, buildWhatsAppProductMessage } from "@/lib/whatsapp";
+import { buildWhatsAppLink } from "@/lib/whatsapp";
 
 export interface ExternalProductAction {
   channel: ExternalChannel;
@@ -67,7 +67,7 @@ export function getProductExternalActions(product: Product): ExternalProductActi
   if (channel === "WHATSAPP" && product.whatsappEnabled) {
     actions.push({
       channel,
-      url: buildWhatsAppLink(buildWhatsAppProductMessage(product)),
+      url: buildWhatsAppLink(),
       label: CHANNEL_LABELS.WHATSAPP,
       secondary: false,
     });
@@ -78,7 +78,7 @@ export function getProductExternalActions(product: Product): ExternalProductActi
   if (product.whatsappEnabled && channel !== "WHATSAPP") {
     actions.push({
       channel: "WHATSAPP",
-      url: buildWhatsAppLink(buildWhatsAppProductMessage(product)),
+      url: buildWhatsAppLink(),
       label: "Preguntar por WhatsApp",
       secondary: actions.length > 0,
     });

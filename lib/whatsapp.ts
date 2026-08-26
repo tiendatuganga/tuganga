@@ -1,5 +1,4 @@
 import type { Product } from "@/types";
-import { formatPrice } from "@/lib/utils";
 
 const DEFAULT_WHATSAPP_NUMBER = "34614826697";
 
@@ -13,23 +12,18 @@ export function getWhatsAppNumber() {
   return sanitizeNumber(process.env.NEXT_PUBLIC_WHATSAPP_NUMBER);
 }
 
-export function buildWhatsAppLink(message: string) {
-  return `https://wa.me/${getWhatsAppNumber()}?text=${encodeURIComponent(message)}`;
+export function buildWhatsAppLink(message?: string) {
+  const baseUrl = `https://wa.me/${getWhatsAppNumber()}`;
+  return message ? `${baseUrl}?text=${encodeURIComponent(message)}` : baseUrl;
 }
 
-/** Enlace real de la ficha del producto en la web (el mismo que genera el sitemap). */
-export function getProductPageUrl(product: Pick<Product, "slug">) {
-  const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL ?? "https://tuganga.es").replace(/\/+$/, "");
-  return `${siteUrl}/producto/${product.slug}`;
-}
-
-export function buildWhatsAppProductMessage(product: Product) {
+export function buildWhatsAppProductMessage(product: Pick<Product, "title">, pageUrl: string) {
   const lines = [
-    "¡Hola! Me interesa este producto:",
+    "Hola 👋 Me interesa este producto:",
     "",
-    `• ${product.title} — ${formatPrice(product.price)}`,
+    product.title,
     "",
-    getProductPageUrl(product),
+    pageUrl,
     "",
     "¿Sigue disponible?",
   ];

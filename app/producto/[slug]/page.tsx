@@ -7,6 +7,7 @@ import { ProductBadge } from "@/components/product/ProductBadge";
 import { ProductPrice } from "@/components/product/ProductPrice";
 import { ExternalProductCTA } from "@/components/product/ExternalProductCTA";
 import { RelatedProducts } from "@/components/product/RelatedProducts";
+import { WhatsAppProductLink } from "@/components/product/WhatsAppProductLink";
 import { CheckIcon, ExternalLinkIcon, WhatsAppIcon } from "@/components/ui/icons";
 import {
   CHANNEL_BUTTON_STYLES,
@@ -182,27 +183,37 @@ export default async function ProductoPage({ params }: { params: Promise<{ slug:
               <p className="truncate text-xs text-tg-ink/50">{product.title}</p>
               <ProductPrice price={product.price} compareAtPrice={product.compareAtPrice} size="sm" />
             </div>
-            <a
-              href={primaryAction.url}
-              target="_blank"
-              rel="noopener noreferrer external"
-              className={cn(
-                "ml-auto inline-flex shrink-0 items-center gap-1.5 rounded-full px-5 py-2.5 text-sm font-semibold transition-colors",
-                CHANNEL_BUTTON_STYLES[primaryAction.channel]
-              )}
-            >
-              {primaryAction.channel === "WHATSAPP" ? (
+            {primaryAction.channel === "WHATSAPP" ? (
+              <WhatsAppProductLink
+                productTitle={product.title}
+                target="_blank"
+                rel="noopener noreferrer external"
+                className={cn(
+                  "ml-auto inline-flex shrink-0 items-center gap-1.5 rounded-full px-5 py-2.5 text-sm font-semibold transition-colors",
+                  CHANNEL_BUTTON_STYLES.WHATSAPP
+                )}
+              >
                 <>
                   <WhatsAppIcon className="h-4 w-4 shrink-0" />
                   Consultar
                 </>
-              ) : (
+              </WhatsAppProductLink>
+            ) : (
+              <a
+                href={primaryAction.url}
+                target="_blank"
+                rel="noopener noreferrer external"
+                className={cn(
+                  "ml-auto inline-flex shrink-0 items-center gap-1.5 rounded-full px-5 py-2.5 text-sm font-semibold transition-colors",
+                  CHANNEL_BUTTON_STYLES[primaryAction.channel]
+                )}
+              >
                 <>
                   Ver en {getExternalChannelName(primaryAction.channel)}
                   <ExternalLinkIcon className="h-3.5 w-3.5 shrink-0 opacity-75" aria-hidden="true" />
                 </>
-              )}
-            </a>
+              </a>
+            )}
           </div>
         </div>
       )}

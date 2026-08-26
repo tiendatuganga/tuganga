@@ -138,9 +138,12 @@ function mapExternalChannel(value: string | undefined): ExternalChannel | undefi
   return undefined;
 }
 
-function validExternalUrl(value: string | undefined, row: SheetRow) {
+function validExternalUrl(value: string | undefined, row: SheetRow, required: boolean) {
   const raw = value?.trim();
-  if (!raw) return undefined;
+  if (!raw) {
+    if (required) warn(row, "URL de venta vacía para un canal externo");
+    return undefined;
+  }
   try {
     const url = new URL(raw);
     if (url.protocol === "https:" || url.protocol === "http:") return url.toString();
@@ -175,7 +178,10 @@ export function mapSheetRow(row: SheetRow): MappedSheetProduct | null {
   const { status, availability: stateAvailability, reviewed } = mapStatus(row);
   const availability = stateAvailability === "SOLD" || inventory === 0 ? "SOLD" : stateAvailability;
   const externalChannel = mapExternalChannel(row["Canal de venta"]);
-  const externalUrl = validExternalUrl(row["URL de venta"], row);
+  const usesExternalUrl = externalChannel === "WALLAPOP" || externalChannel === "VINTED";
+  const externalUrl = usesExternalUrl
+    ? validExternalUrl(row["URL de venta"], row, true)
+    : undefined;
   const features = [row["Característica 1"], row["Característica 2"]]
     .map((value) => value?.trim())
     .filter((value): value is string => Boolean(value));
