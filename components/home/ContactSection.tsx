@@ -2,36 +2,44 @@ import {
   ArrowIcon,
   FacebookIcon,
   InstagramIcon,
+  LinktreeIcon,
   TikTokIcon,
   YoutubeIcon,
 } from "@/components/ui/icons";
 
 const SOCIALS = [
   {
+    label: "Linktree",
+    cta: "Ver enlaces",
+    href: "https://linktr.ee/tuganga_?utm_source=linktree_profile_share",
+    icon: LinktreeIcon,
+    logoClass: "text-[#43e660]",
+  },
+  {
     label: "Facebook",
     cta: "Síguenos",
-    href: "https://www.facebook.com/tuganga",
+    href: "https://www.facebook.com/share/1F6hedDCbV/?mibextid=wwXIfr",
     icon: FacebookIcon,
     logoClass: "text-[#1877f2]",
   },
   {
     label: "Instagram",
     cta: "Síguenos",
-    href: "https://www.instagram.com/tuganga",
+    href: "https://www.instagram.com/tugangaes_?igsi=anNjbGllN3A2eGQx",
     icon: InstagramIcon,
     logoClass: "text-[#e1306c]",
   },
   {
     label: "YouTube",
     cta: "Suscríbete",
-    href: "https://www.youtube.com/@tuganga",
+    href: "https://youtube.com/@tugangatienda?si=VXCUMTunAb3xSy_O",
     icon: YoutubeIcon,
     logoClass: "text-[#ff0000]",
   },
   {
     label: "TikTok",
     cta: "Síguenos",
-    href: "https://www.tiktok.com/@tuganga",
+    href: "https://www.tiktok.com/@tuganga_?_r=1&_t=ZS-99D6crRVELk",
     icon: TikTokIcon,
     logoClass: "text-tg-ink [filter:drop-shadow(1px_1px_0_#25f4ee)_drop-shadow(-1px_-1px_0_#fe2c55)]",
   },
@@ -49,14 +57,14 @@ export function ContactSection() {
         </p>
       </div>
 
-      <div className="grid grid-cols-2 border-y border-tg-border sm:grid-cols-4 sm:divide-x sm:divide-tg-border">
+      <div className="grid grid-cols-2 border-y border-tg-border sm:grid-cols-5 sm:divide-x sm:divide-tg-border">
         {SOCIALS.map((social) => (
           <a
             key={social.label}
             href={social.href}
             target="_blank"
             rel="noopener noreferrer"
-            className="group flex flex-col items-center gap-3 border-tg-border px-4 py-8 text-center max-sm:odd:border-r max-sm:[&:nth-child(-n+2)]:border-b sm:py-9"
+            className="group flex flex-col items-center gap-3 border-tg-border px-4 py-8 text-center max-sm:odd:border-r max-sm:last:col-span-2 max-sm:[&:nth-child(-n+4)]:border-b sm:py-9"
           >
             <social.icon
               className={`h-11 w-11 sm:h-13 sm:w-13 ${social.logoClass}`}

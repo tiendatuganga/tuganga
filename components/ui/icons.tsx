@@ -222,6 +222,14 @@ export function TikTokIcon(props: IconProps) {
   );
 }
 
+export function LinktreeIcon(props: IconProps) {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" {...props}>
+      <path d="m12 2.4 2.7 4.7h-1.8l3.2 3.7h-2.2l3.5 4.1h-4.1V21h-2.6v-6.1H6.6l3.5-4.1H7.9l3.2-3.7H9.3L12 2.4Z" />
+    </svg>
+  );
+}
+
 /** Monograma "TG" propio de la marca, usado como marca de agua sutil. */
 export function MonogramTG(props: IconProps) {
   return (
