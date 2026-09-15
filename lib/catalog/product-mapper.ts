@@ -130,12 +130,18 @@ function mapStatus(row: SheetRow): {
   return { status: [...status], availability, reviewed };
 }
 
-function mapExternalChannel(value: string | undefined): ExternalChannel | undefined {
-  const normalized = normalizeText(value ?? "");
-  if (normalized === "wallapop") return "WALLAPOP";
-  if (normalized === "vinted") return "VINTED";
-  if (normalized === "whatsapp") return "WHATSAPP";
-  return undefined;
+function mapExternalChannels(value: string | undefined, row: SheetRow): ExternalChannel[] {
+  const channels = new Set<ExternalChannel>();
+  const values = value?.split(/[|,;/]+/).map(normalizeText).filter(Boolean) ?? [];
+
+  for (const channel of values) {
+    if (channel === "wallapop") channels.add("WALLAPOP");
+    else if (channel === "vinted") channels.add("VINTED");
+    else if (channel === "whatsapp") channels.add("WHATSAPP");
+    else warn(row, `canal de venta no reconocido: ${channel}`);
+  }
+
+  return [...channels];
 }
 
 function validExternalUrl(value: string | undefined, row: SheetRow, required: boolean) {
@@ -177,7 +183,14 @@ export function mapSheetRow(row: SheetRow): MappedSheetProduct | null {
   const order = parseInteger(row.Orden, row, "orden");
   const { status, availability: stateAvailability, reviewed } = mapStatus(row);
   const availability = stateAvailability === "SOLD" || inventory === 0 ? "SOLD" : stateAvailability;
-  const externalChannel = mapExternalChannel(row["Canal de venta"]);
+  const externalChannels = mapExternalChannels(row["Canal de venta"], row);
+  const marketplaceChannels = externalChannels.filter(
+    (channel) => channel === "WALLAPOP" || channel === "VINTED"
+  );
+  if (marketplaceChannels.length > 1) {
+    warn(row, "solo se puede asociar una URL a Wallapop o Vinted; se usará el primer canal");
+  }
+  const externalChannel = marketplaceChannels[0] ?? externalChannels[0];
   const usesExternalUrl = externalChannel === "WALLAPOP" || externalChannel === "VINTED";
   const externalUrl = usesExternalUrl
     ? validExternalUrl(row["URL de venta"], row, true)
@@ -215,7 +228,7 @@ export function mapSheetRow(row: SheetRow): MappedSheetProduct | null {
       availability,
       externalChannel,
       externalUrl,
-      whatsappEnabled: externalChannel === "WHATSAPP",
+      whatsappEnabled: externalChannels.includes("WHATSAPP"),
       condition: row.Estado?.trim() || undefined,
       reviewed: reviewed || secondLife,
       featured,
