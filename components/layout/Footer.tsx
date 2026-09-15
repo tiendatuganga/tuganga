@@ -7,8 +7,9 @@ const FOOTER_LINKS = [
   {
     title: "Descubrir",
     links: [
-      { label: "Nuevos", href: "/productos?filtro=nuevos" },
-      { label: "Segunda vuelta", href: "/productos?filtro=segunda-vuelta" },
+      { label: "Nuevo", href: "/productos?filtro=nuevo" },
+      { label: "Como nuevo", href: "/productos?filtro=como-nuevo" },
+      { label: "Reacondicionado", href: "/productos?filtro=reacondicionado" },
       { label: "Últimas oportunidades", href: "/productos?filtro=ultimas-oportunidades" },
       { label: "Categorías", href: "/categorias" },
     ],

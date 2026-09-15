@@ -3,13 +3,12 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { Product } from "@/types";
-import { ProductBadge, primaryStatus } from "@/components/product/ProductBadge";
+import { ProductBadge } from "@/components/product/ProductBadge";
 import { ProductPrice } from "@/components/product/ProductPrice";
 import { FavoriteToggle } from "@/components/product/FavoriteToggle";
 import { ArrowIcon } from "@/components/ui/icons";
 
 export function ProductCard({ product }: { product: Product }) {
-  const badge = primaryStatus(product.status);
   const [primaryImage, secondaryImage] = product.images;
 
   return (
@@ -39,7 +38,7 @@ export function ProductCard({ product }: { product: Product }) {
             sizes="(min-width: 1024px) 23vw, (min-width: 640px) 33vw, 50vw"
           />
         )}
-        {badge && <ProductBadge status={badge} className="absolute left-3 top-3" />}
+        {product.condition && <ProductBadge condition={product.condition} className="absolute left-3 top-3" />}
         <FavoriteToggle product={product} className="absolute right-2.5 top-2.5 z-20" />
         <span
           aria-hidden="true"
@@ -51,8 +50,8 @@ export function ProductCard({ product }: { product: Product }) {
       </div>
 
       <div className="flex flex-col pt-3">
-        <span className="text-[11px] font-medium uppercase tracking-wide text-tg-ink/40">
-          {product.category}
+        <span className="text-[11px] font-medium tracking-wide text-tg-ink/40">
+          {product.category ?? "Sin categoría"}
         </span>
         <h3 className="mt-1 line-clamp-2 text-sm font-semibold leading-5 text-tg-ink transition-colors duration-200 group-hover:text-tg-primary">
           {product.title}

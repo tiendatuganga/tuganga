@@ -14,7 +14,7 @@ class CatalogSearchService implements SearchService {
       (product) =>
         normalizeText(product.title).includes(normalized) ||
         normalizeText(product.brand ?? "").includes(normalized) ||
-        normalizeText(product.category).includes(normalized) ||
+        normalizeText(product.category ?? "").includes(normalized) ||
         normalizeText(product.subcategory ?? "").includes(normalized)
     );
   }

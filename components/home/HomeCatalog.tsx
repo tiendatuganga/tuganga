@@ -15,7 +15,7 @@ import { mockCategories } from "@/data/mock/categories";
 import { cn } from "@/lib/utils";
 import type { Product } from "@/types";
 
-type CatalogFilter = "todos" | "nuevos" | "ofertas" | "segunda-vuelta";
+type CatalogFilter = "todos" | "nuevo" | "como-nuevo" | "reacondicionado" | "ofertas";
 
 interface FilterPill {
   key: CatalogFilter;
@@ -34,11 +34,25 @@ const FILTERS: FilterPill[] = [
     active: "border-tg-primary bg-tg-primary text-white",
   },
   {
-    key: "nuevos",
-    label: "Nuevos",
+    key: "nuevo",
+    label: "Nuevo",
     Icon: SparkleIcon,
     inactive: "border-emerald-200 bg-emerald-50 text-emerald-800 hover:border-emerald-300 hover:bg-emerald-100",
     active: "border-emerald-600 bg-emerald-600 text-white",
+  },
+  {
+    key: "como-nuevo",
+    label: "Como nuevo",
+    Icon: SparkleIcon,
+    inactive: "border-tg-lavender bg-white text-tg-primary hover:bg-tg-lavender-soft",
+    active: "border-tg-primary bg-tg-primary text-white",
+  },
+  {
+    key: "reacondicionado",
+    label: "Reacondicionado",
+    Icon: LoopIcon,
+    inactive: "border-orange-200 bg-orange-50 text-orange-800 hover:border-orange-300 hover:bg-orange-100",
+    active: "border-orange-500 bg-orange-500 text-white",
   },
   {
     key: "ofertas",
@@ -47,31 +61,28 @@ const FILTERS: FilterPill[] = [
     inactive: "border-red-200 bg-red-50 text-red-700 hover:border-red-300 hover:bg-red-100",
     active: "border-red-600 bg-red-600 text-white",
   },
-  {
-    key: "segunda-vuelta",
-    label: "Segunda vuelta",
-    Icon: LoopIcon,
-    inactive: "border-orange-200 bg-orange-50 text-orange-800 hover:border-orange-300 hover:bg-orange-100",
-    active: "border-orange-500 bg-orange-500 text-white",
-  },
 ];
 
 const FILTER_META: Record<CatalogFilter, { title: string; description: string }> = {
   todos: {
     title: "Todas las gangas",
-    description: "Novedades, ofertas y segunda vuelta mezcladas. Usa las píldoras para filtrar.",
+    description: "Productos nuevos, como nuevos, reacondicionados y ofertas. Usa las píldoras para filtrar.",
   },
-  nuevos: {
-    title: "Nuevos",
-    description: "Lo último que ha entrado en TU GANGA, seleccionado esta semana.",
+  nuevo: {
+    title: "Nuevo",
+    description: "Productos nuevos que han entrado en TU GANGA.",
+  },
+  "como-nuevo": {
+    title: "Como nuevo",
+    description: "Productos en un estado excelente, tal como se indica en su ficha.",
+  },
+  reacondicionado: {
+    title: "Reacondicionado",
+    description: "Productos reacondicionados y comprobados antes de publicarse.",
   },
   ofertas: {
     title: "Ofertas",
     description: "Gangas con descuento directo. Cuando vuelan, vuelan.",
-  },
-  "segunda-vuelta": {
-    title: "Segunda vuelta",
-    description: "Productos revisados que todavía tienen mucho que ofrecer.",
   },
 };
 
@@ -83,12 +94,16 @@ export function HomeCatalog({ products }: { products: Product[] }) {
 
   const visible = useMemo(() => {
     switch (filter) {
-      case "nuevos":
-        return products.filter((product) => product.status.includes("NEW"));
+      case "nuevo":
+        return products.filter((product) => product.condition === "Nuevo");
+      case "como-nuevo":
+        return products.filter((product) => product.condition === "Como nuevo");
+      case "reacondicionado":
+        return products.filter((product) => product.condition === "Reacondicionado");
       case "ofertas":
-        return products.filter((product) => product.status.includes("SALE"));
-      case "segunda-vuelta":
-        return products.filter((product) => product.secondLife || product.status.includes("SECOND_LIFE"));
+        return products.filter(
+          (product) => product.price !== null && Boolean(product.compareAtPrice && product.compareAtPrice > product.price)
+        );
       default:
         return products;
     }

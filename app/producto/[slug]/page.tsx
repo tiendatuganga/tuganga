@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import type { Metadata } from "next";
 import { productService } from "@/lib/services/product-service";
+import { categoryService } from "@/lib/services/category-service";
 import { ProductGallery } from "@/components/product/ProductGallery";
 import { ProductBadge } from "@/components/product/ProductBadge";
 import { ProductPrice } from "@/components/product/ProductPrice";
@@ -62,7 +63,10 @@ export default async function ProductoPage({ params }: { params: Promise<{ slug:
   const product = await productService.getProductBySlug(slug);
   if (!product) notFound();
 
-  const related = await productService.getRelatedProducts(product, 4);
+  const [related, category] = await Promise.all([
+    productService.getRelatedProducts(product, 4),
+    product.category ? categoryService.getCategoryByTitle(product.category) : Promise.resolve(null),
+  ]);
   const externalActions = getProductExternalActions(product);
   const availability = getAvailabilityInfo(product);
   const primaryAction = externalActions[0];
@@ -87,22 +91,24 @@ export default async function ProductoPage({ params }: { params: Promise<{ slug:
         <ProductGallery images={product.images} title={product.title} />
 
         <div className="flex flex-col">
-          <Link
-            href={product.category === "salud" ? "/salud" : `/categoria/${product.category}`}
-            className="w-fit text-xs font-medium uppercase tracking-wide text-tg-ink/40 capitalize transition-colors hover:text-tg-primary"
-          >
-            {product.category}
-          </Link>
+          {category ? (
+            <Link
+              href={category.slug === "salud" ? "/salud" : `/categoria/${category.slug}`}
+              className="w-fit text-xs font-medium tracking-wide text-tg-ink/40 transition-colors hover:text-tg-primary"
+            >
+              {category.title}
+            </Link>
+          ) : (
+            <span className="w-fit text-xs font-medium tracking-wide text-tg-ink/40">Sin categoría</span>
+          )}
 
           <h1 className="mt-2 font-display text-3xl font-bold tracking-tight text-tg-ink sm:text-4xl">
             {product.title}
           </h1>
 
-          {product.status.length > 0 && (
+          {product.condition && (
             <div className="mt-4 flex flex-wrap gap-2">
-              {product.status.map((status) => (
-                <ProductBadge key={status} status={status} />
-              ))}
+              <ProductBadge condition={product.condition} />
             </div>
           )}
 
@@ -127,13 +133,9 @@ export default async function ProductoPage({ params }: { params: Promise<{ slug:
             />
           </div>
 
-          <p className="mt-6 max-w-xl text-base leading-relaxed text-tg-muted">{product.description}</p>
-
-          {product.condition && (
-            <p className="mt-5 text-sm text-tg-muted">
-              <span className="font-semibold text-tg-ink/70">Estado:</span> {product.condition}
-            </p>
-          )}
+          <p className="mt-6 max-w-xl whitespace-pre-line text-base leading-relaxed text-tg-muted">
+            {product.description}
+          </p>
 
           <div className="mt-6 max-w-xl rounded-card border border-health-border bg-health-soft p-4">
             <p className="flex items-center gap-2 text-sm font-semibold text-health-strong">

@@ -1,35 +1,24 @@
 import { cn } from "@/lib/utils";
-import { SparkleIcon, LoopIcon, BoltIcon, StarIcon, TagIcon } from "@/components/ui/icons";
-import type { ProductStatus } from "@/types";
+import { SparkleIcon, LoopIcon, StarIcon } from "@/components/ui/icons";
+import type { ProductCondition } from "@/types";
 import type { ComponentType, SVGProps } from "react";
 
 const STATUS_CONFIG: Record<
-  ProductStatus,
+  ProductCondition,
   { label: string; Icon: ComponentType<SVGProps<SVGSVGElement>>; className: string }
 > = {
-  NEW: { label: "Nuevo", Icon: SparkleIcon, className: "border border-emerald-200 bg-emerald-50 text-emerald-800" },
-  SECOND_LIFE: { label: "Segunda vuelta", Icon: LoopIcon, className: "border border-orange-200 bg-orange-50 text-orange-800" },
-  LIMITED: { label: "Últimas unidades", Icon: BoltIcon, className: "border border-tg-dark bg-tg-dark text-white" },
-  FEATURED: { label: "Destacado", Icon: StarIcon, className: "border border-tg-lavender bg-white text-tg-primary" },
-  SALE: { label: "Oferta", Icon: TagIcon, className: "border border-tg-purple bg-tg-lavender-soft text-tg-purple" },
+  Nuevo: { label: "Nuevo", Icon: SparkleIcon, className: "border border-emerald-200 bg-emerald-50 text-emerald-800" },
+  "Como nuevo": { label: "Como nuevo", Icon: StarIcon, className: "border border-tg-lavender bg-white text-tg-primary" },
+  Reacondicionado: { label: "Reacondicionado", Icon: LoopIcon, className: "border border-orange-200 bg-orange-50 text-orange-800" },
 };
 
-const PRIORITY: ProductStatus[] = ["SECOND_LIFE", "LIMITED", "NEW", "FEATURED", "SALE"];
-
-export function primaryStatus(statuses: ProductStatus[]): ProductStatus | null {
-  for (const status of PRIORITY) {
-    if (statuses.includes(status)) return status;
-  }
-  return statuses[0] ?? null;
-}
-
-export function ProductBadge({ status, className }: { status: ProductStatus; className?: string }) {
-  const { label, Icon, className: statusClassName } = STATUS_CONFIG[status];
+export function ProductBadge({ condition, className }: { condition: ProductCondition; className?: string }) {
+  const { label, Icon, className: statusClassName } = STATUS_CONFIG[condition];
 
   return (
     <span
       className={cn(
-        "inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-[11px] font-semibold uppercase tracking-wide",
+        "inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-[11px] font-semibold tracking-wide",
         statusClassName,
         className
       )}

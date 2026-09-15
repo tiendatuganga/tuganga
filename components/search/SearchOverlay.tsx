@@ -71,7 +71,7 @@ export function SearchOverlay({ isOpen, onClose, products }: SearchOverlayProps)
 
             <div className="mt-8 flex-1">
               {query.trim() === "" ? (
-                <p className="text-sm text-tg-ink/45">Prueba con &ldquo;lámpara&rdquo;, &ldquo;mochila&rdquo; o &ldquo;segunda vuelta&rdquo;.</p>
+                <p className="text-sm text-tg-ink/45">Prueba con &ldquo;lámpara&rdquo;, &ldquo;mochila&rdquo; o &ldquo;reacondicionado&rdquo;.</p>
               ) : results.length === 0 ? (
                 <p className="text-sm text-tg-ink/45">No hemos encontrado resultados para &ldquo;{query}&rdquo;.</p>
               ) : (
@@ -94,7 +94,7 @@ export function SearchOverlay({ isOpen, onClose, products }: SearchOverlayProps)
                         </div>
                         <div className="flex-1">
                           <p className="text-sm font-medium text-tg-ink">{product.title}</p>
-                          <p className="text-xs capitalize text-tg-ink/45">{product.category}</p>
+                          <p className="text-xs text-tg-ink/45">{product.category ?? "Sin categoría"}</p>
                         </div>
                         <span className="text-sm font-semibold text-tg-ink">{formatPrice(product.price)}</span>
                       </Link>

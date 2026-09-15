@@ -2,22 +2,33 @@ import type {
   ExternalChannel,
   Product,
   ProductAvailability,
+  ProductCategory,
+  ProductCondition,
   ProductImage,
-  ProductStatus,
 } from "@/types";
 import { normalizeText } from "@/lib/utils";
 import type { SheetRow } from "@/lib/catalog/google-sheet";
 
-const CATEGORY_PLACEHOLDERS = new Set([
-  "accesorios",
-  "belleza",
-  "gadgets",
-  "hogar",
-  "mascotas",
-  "ocio",
-  "salud",
-  "tecnologia",
-]);
+const CATEGORY_ALIASES: Record<string, ProductCategory> = {
+  hogar: "Hogar",
+  electronica: "Electrónica",
+  tecnologia: "Electrónica",
+  "salud y cuidado personal": "Salud y Cuidado Personal",
+  salud: "Salud y Cuidado Personal",
+  belleza: "Belleza",
+  accesorios: "Accesorios",
+  herramientas: "Herramientas",
+  ocio: "Herramientas",
+};
+
+const CATEGORY_PLACEHOLDERS: Record<ProductCategory, string> = {
+  Hogar: "/categories/hogar.svg",
+  Electrónica: "/categories/tecnologia.svg",
+  "Salud y Cuidado Personal": "/categories/salud.svg",
+  Belleza: "/categories/belleza.svg",
+  Accesorios: "/categories/accesorios.svg",
+  Herramientas: "/categories/ocio.svg",
+};
 
 export interface MappedSheetProduct {
   product: Product;
@@ -32,12 +43,6 @@ function warn(row: SheetRow, message: string) {
 
 function isYes(value: string | undefined) {
   return normalizeText(value ?? "") === "si";
-}
-
-function slugify(value: string) {
-  return normalizeText(value)
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/^-+|-+$/g, "");
 }
 
 function parseNumber(value: string | undefined, row: SheetRow, field: string): number | null {
@@ -86,12 +91,23 @@ export function normalizeGoogleDriveImageUrl(value: string): string | null {
   return fileId ? `/api/catalog-image?id=${encodeURIComponent(fileId)}` : null;
 }
 
-function placeholderFor(category: string) {
-  const slug = CATEGORY_PLACEHOLDERS.has(category) ? category : "gadgets";
-  return `/categories/${slug}.svg`;
+function mapCategory(row: SheetRow): ProductCategory | null {
+  const raw = row["Categoría"]?.trim();
+  if (!raw) {
+    warn(row, "categoría vacía");
+    return null;
+  }
+
+  const category = CATEGORY_ALIASES[normalizeText(raw)];
+  if (!category) warn(row, `categoría no reconocida: ${raw}`);
+  return category ?? null;
 }
 
-function mapImages(row: SheetRow, title: string, category: string): ProductImage[] {
+function placeholderFor(category: ProductCategory | null) {
+  return category ? CATEGORY_PLACEHOLDERS[category] : "/categories/hogar.svg";
+}
+
+function mapImages(row: SheetRow, title: string, category: ProductCategory | null): ProductImage[] {
   const rawImages = row.Fotos?.split("|").map((value) => value.trim()).filter(Boolean) ?? [];
   const images = rawImages.flatMap((value) => {
     const normalized = normalizeGoogleDriveImageUrl(value);
@@ -105,29 +121,20 @@ function mapImages(row: SheetRow, title: string, category: string): ProductImage
   return images.length > 0 ? images : [{ url: placeholderFor(category), alt: title }];
 }
 
-function mapStatus(row: SheetRow): {
-  status: ProductStatus[];
-  availability: ProductAvailability;
-  reviewed: boolean;
-} {
-  const values = row.Estado?.split(/[|,;/]+/).map(normalizeText).filter(Boolean) ?? [];
-  const status = new Set<ProductStatus>();
-  let availability: ProductAvailability = "AVAILABLE";
-  let reviewed = false;
-
-  for (const value of values) {
-    if (value === "nuevo") status.add("NEW");
-    else if (value === "oferta") status.add("SALE");
-    else if (value === "destacado") status.add("FEATURED");
-    else if (value === "segunda vuelta") status.add("SECOND_LIFE");
-    else if (value === "ultimas unidades") status.add("LIMITED");
-    else if (value === "revisado") reviewed = true;
-    else if (value === "vendido") availability = "SOLD";
-    else warn(row, `estado no reconocido: ${value}`);
+function mapCondition(row: SheetRow): ProductCondition | null {
+  const raw = row.Estado?.trim();
+  if (!raw) {
+    warn(row, "estado vacío");
+    return null;
   }
 
-  if (isYes(row.Destacado)) status.add("FEATURED");
-  return { status: [...status], availability, reviewed };
+  const normalized = normalizeText(raw);
+  if (normalized === "nuevo") return "Nuevo";
+  if (normalized === "como nuevo") return "Como nuevo";
+  if (normalized === "reacondicionado") return "Reacondicionado";
+
+  warn(row, `estado no reconocido: ${raw}`);
+  return null;
 }
 
 function mapExternalChannels(value: string | undefined, row: SheetRow): ExternalChannel[] {
@@ -172,7 +179,7 @@ export function mapSheetRow(row: SheetRow): MappedSheetProduct | null {
     return null;
   }
 
-  const category = slugify(row["Categoría"] ?? "");
+  const category = mapCategory(row);
   const price = parseNumber(row["Precio (€)"], row, "precio");
   const rawCompareAtPrice = parseNumber(row["Precio anterior (€)"], row, "precio anterior");
   const compareAtPrice =
@@ -181,8 +188,8 @@ export function mapSheetRow(row: SheetRow): MappedSheetProduct | null {
       : undefined;
   const inventory = parseInteger(row.Stock, row, "stock") ?? 0;
   const order = parseInteger(row.Orden, row, "orden");
-  const { status, availability: stateAvailability, reviewed } = mapStatus(row);
-  const availability = stateAvailability === "SOLD" || inventory === 0 ? "SOLD" : stateAvailability;
+  const condition = mapCondition(row);
+  const availability: ProductAvailability = inventory === 0 ? "SOLD" : "AVAILABLE";
   const externalChannels = mapExternalChannels(row["Canal de venta"], row);
   const marketplaceChannels = externalChannels.filter(
     (channel) => channel === "WALLAPOP" || channel === "VINTED"
@@ -199,8 +206,7 @@ export function mapSheetRow(row: SheetRow): MappedSheetProduct | null {
     .map((value) => value?.trim())
     .filter((value): value is string => Boolean(value));
   const images = mapImages(row, title, category);
-  const featured = isYes(row.Destacado) || status.includes("FEATURED");
-  const secondLife = status.includes("SECOND_LIFE");
+  const featured = isYes(row.Destacado);
 
   return {
     published: isYes(row.Publicado),
@@ -220,8 +226,7 @@ export function mapSheetRow(row: SheetRow): MappedSheetProduct | null {
       compareAtPrice,
       images,
       featuredImage: images[0],
-      status,
-      tags: [row.Marca, row["Categoría"], row["Subcategoría"]]
+      tags: [row.Marca, category, row["Subcategoría"]]
         .map((value) => value?.trim())
         .filter((value): value is string => Boolean(value)),
       inventory,
@@ -229,10 +234,9 @@ export function mapSheetRow(row: SheetRow): MappedSheetProduct | null {
       externalChannel,
       externalUrl,
       whatsappEnabled: externalChannels.includes("WHATSAPP"),
-      condition: row.Estado?.trim() || undefined,
-      reviewed: reviewed || secondLife,
+      condition,
+      reviewed: condition === "Reacondicionado",
       featured,
-      secondLife,
       order: order ?? undefined,
       createdAt: "1970-01-01T00:00:00.000Z",
     },

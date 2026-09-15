@@ -14,7 +14,7 @@ const AUTOPLAY_MS = 4000;
 const HEALTH_BG_SRC =
   "https://images.pexels.com/photos/7216285/pexels-photo-7216285.jpeg?auto=compress&cs=tinysrgb&w=2000";
 
-const SLIDE_LABELS = ["Salud y bienestar", "Encuentra tu próxima ganga"];
+const SLIDE_LABELS = ["Salud y Cuidado Personal", "Encuentra tu próxima ganga"];
 
 const FLOATING_PRODUCTS = [
   {
@@ -150,7 +150,7 @@ export function Hero() {
           <div className="max-w-2xl">
             <span className="inline-flex items-center gap-2 rounded-full bg-health/25 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.18em] text-white ring-1 ring-inset ring-white/30 backdrop-blur-sm">
               <HeartIcon className="h-3.5 w-3.5" />
-              Vertical Salud · Revisado en Berja
+              Salud y Cuidado Personal · Revisado en Berja
             </span>
             <h1 className="mt-4 font-display text-4xl font-extrabold leading-[1.05] tracking-tight text-white sm:text-5xl lg:text-6xl xl:mt-6">
               TU SALUD TAMBIÉN
@@ -166,7 +166,7 @@ export function Hero() {
                 href="/salud"
                 className="bg-health text-white hover:bg-health-strong"
               >
-                Ver productos de salud
+                Ver Salud y Cuidado Personal
               </Button>
             </div>
           </div>
@@ -191,7 +191,7 @@ export function Hero() {
               PRÓXIMA GANGA.
             </h1>
             <p className="mt-4 max-w-xl text-base leading-relaxed text-white/85 sm:text-lg xl:mt-6">
-              Productos nuevos, segunda vuelta y oportunidades seleccionadas para ti. Encuentra el
+              Productos nuevos, como nuevos y reacondicionados seleccionados para ti. Encuentra el
               tuyo y elige dónde comprarlo.
             </p>
             <div className="mt-5 flex flex-wrap justify-center gap-4 sm:justify-start xl:mt-8">
@@ -202,11 +202,11 @@ export function Hero() {
                 Descubrir productos
               </Button>
               <Button
-                href="/productos?filtro=segunda-vuelta"
+                href="/productos?filtro=reacondicionado"
                 variant="secondary"
                 className="border-white/40 bg-transparent text-white hover:border-white hover:bg-white hover:text-tg-primary"
               >
-                Segunda vuelta
+                Reacondicionados
               </Button>
             </div>
             <MobileProductCarousel active={active === 1} />

@@ -24,6 +24,8 @@ export async function generateMetadata({
 export default async function CategoriaPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   if (slug === "salud") redirect("/salud");
+  if (slug === "tecnologia") redirect("/categoria/electronica");
+  if (slug === "ocio") redirect("/categoria/herramientas");
   const category = await categoryService.getCategoryBySlug(slug);
   if (!category) notFound();
 

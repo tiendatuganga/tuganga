@@ -6,25 +6,30 @@ import type { Product } from "@/types";
 
 export const metadata: Metadata = {
   title: "Productos",
-  description: "Todos los productos de TU GANGA: nuevos, segunda vuelta, destacados y últimas oportunidades.",
+  description: "Todos los productos de TU GANGA: nuevos, como nuevos, reacondicionados, destacados y ofertas.",
 };
 
 const FILTERS = [
   { key: undefined, label: "Todos" },
-  { key: "nuevos", label: "Nuevos" },
+  { key: "nuevo", label: "Nuevo" },
+  { key: "como-nuevo", label: "Como nuevo" },
+  { key: "reacondicionado", label: "Reacondicionado" },
   { key: "ofertas", label: "Ofertas" },
-  { key: "segunda-vuelta", label: "Segunda vuelta" },
   { key: "ultimas-oportunidades", label: "Últimas oportunidades" },
   { key: "destacados", label: "Destacados" },
 ] as const;
 
 const FILTER_COPY: Record<string, { title: string; description: string }> = {
-  nuevos: { title: "Nuevos", description: "Lo último que ha entrado en TU GANGA." },
-  ofertas: { title: "Ofertas", description: "Gangas con descuento directo. Cuando vuelan, vuelan." },
-  "segunda-vuelta": {
-    title: "Segunda vuelta",
-    description: "Una segunda oportunidad para productos que todavía tienen mucho que ofrecer.",
+  nuevo: { title: "Nuevo", description: "Productos nuevos disponibles en TU GANGA." },
+  "como-nuevo": {
+    title: "Como nuevo",
+    description: "Productos en un estado excelente, tal como se indica en su ficha.",
   },
+  reacondicionado: {
+    title: "Reacondicionado",
+    description: "Productos reacondicionados y comprobados antes de publicarse.",
+  },
+  ofertas: { title: "Ofertas", description: "Gangas con descuento directo. Cuando vuelan, vuelan." },
   "ultimas-oportunidades": {
     title: "Últimas oportunidades",
     description: "Quedan pocas unidades. Cuando se acaban, no vuelven.",
@@ -36,12 +41,14 @@ async function getFilteredProducts(filtro?: string, categoria?: string): Promise
   if (categoria) return productService.getProductsByCategory(categoria);
 
   switch (filtro) {
-    case "nuevos":
+    case "nuevo":
       return productService.getNewProducts(48);
+    case "como-nuevo":
+      return productService.getProductsByCondition("Como nuevo", 48);
+    case "reacondicionado":
+      return productService.getProductsByCondition("Reacondicionado", 48);
     case "ofertas":
       return productService.getSaleProducts(48);
-    case "segunda-vuelta":
-      return productService.getSecondLifeProducts(48);
     case "ultimas-oportunidades":
       return productService.getLimitedProducts(48);
     case "destacados":

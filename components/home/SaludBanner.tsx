@@ -23,7 +23,7 @@ export function SaludBanner() {
           </div>
         </div>
         <span className="inline-flex shrink-0 items-center gap-1.5 text-sm font-semibold text-white">
-          Explorar Salud
+          Explorar Salud y Cuidado Personal
           <ArrowIcon className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1" />
         </span>
       </Link>

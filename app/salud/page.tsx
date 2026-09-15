@@ -8,7 +8,7 @@ import type { Product } from "@/types";
 import styles from "./salud.module.css";
 
 export const metadata: Metadata = {
-  title: "Salud — Outlet de bienestar revisado en Berja",
+  title: "Salud y Cuidado Personal — Outlet revisado en Berja",
   description: "Equipos de recuperación, fototerapia, estética y primeros auxilios revisados a mano en Berja, Almería.",
 };
 
@@ -34,6 +34,31 @@ const sectionDefinitions = [
     description: "Equipos de práctica para formación sanitaria, seguros de usar tantas veces como haga falta.",
   },
 ] as const;
+
+type HealthSectionId = (typeof sectionDefinitions)[number]["id"];
+
+function getHealthSectionId(product: Product): HealthSectionId {
+  const subcategory = normalizeText(product.subcategory ?? "");
+
+  if (subcategory.includes("luz") || subcategory.includes("fototerapia")) return "luz";
+  if (
+    subcategory.includes("belleza") ||
+    subcategory.includes("estetica") ||
+    subcategory.includes("facial") ||
+    subcategory.includes("microneedling")
+  ) {
+    return "belleza";
+  }
+  if (
+    subcategory.includes("auxilio") ||
+    subcategory.includes("formacion") ||
+    subcategory.includes("desfibrilador")
+  ) {
+    return "auxilios";
+  }
+
+  return "recuperacion";
+}
 
 function HealthProductCard({ product }: { product: Product }) {
   const channel = product.externalChannel ? getExternalChannelName(product.externalChannel) : null;
@@ -63,9 +88,7 @@ export default async function SaludPage() {
   const sections = sectionDefinitions
     .map((section) => ({
       ...section,
-      products: healthProducts.filter(
-        (product) => normalizeText(product.subcategory ?? "") === normalizeText(section.title)
-      ),
+      products: healthProducts.filter((product) => getHealthSectionId(product) === section.id),
     }))
     .filter((section) => section.products.length > 0);
 
@@ -78,12 +101,12 @@ export default async function SaludPage() {
     <div className={`${styles.page} theme-health`}>
       <section className={styles.hero}>
         <div className={styles.heroInner}>
-          <div><div className={styles.eyebrow}>Outlet de salud &amp; bienestar</div><h1>Equipos de recuperación, fototerapia y estética, revisados a mano antes de llegar a ti.</h1><p>Devoluciones de Amazon y grandes superficies, probadas una a una en Berja. Precios de outlet, funcionamiento comprobado, entrega en mano en Almería y Málaga.</p><div className={styles.badges}><span>✓ Probado antes de la venta</span><span>✓ Entrega en mano Almería / Málaga</span><span>✓ Envío a toda España</span></div></div>
+          <div><div className={styles.eyebrow}>Salud y Cuidado Personal</div><h1>Equipos de recuperación, fototerapia y estética, revisados a mano antes de llegar a ti.</h1><p>Devoluciones de Amazon y grandes superficies, probadas una a una en Berja. Precios de outlet, funcionamiento comprobado, entrega en mano en Almería y Málaga.</p><div className={styles.badges}><span>✓ Probado antes de la venta</span><span>✓ Entrega en mano Almería / Málaga</span><span>✓ Envío a toda España</span></div></div>
           <div className={styles.stamp}><div><strong>REVISADO<br />EN BERJA</strong><small>100% funcional</small></div></div>
         </div>
       </section>
 
-      <CategoryNavigation items={categoryItems} label="Explorar salud" tone="accent" />
+      <CategoryNavigation items={categoryItems} label="Explorar Salud y Cuidado Personal" tone="accent" />
 
       {sections.map((section, index) => (
         <section className={styles.category} id={section.id} key={section.id}>
@@ -93,7 +116,7 @@ export default async function SaludPage() {
         </section>
       ))}
 
-      <section className={styles.trust} aria-label="Por qué confiar en Tu Ganga Salud">
+      <section className={styles.trust} aria-label="Por qué confiar en Salud y Cuidado Personal de TU GANGA">
         {[
           ["Revisado a mano", "Cada unidad se prueba antes de publicarse. Si no funciona al 100%, no se vende."],
           ["Origen honesto", "Devoluciones de Amazon y grandes superficies. Te decimos siempre el estado real."],

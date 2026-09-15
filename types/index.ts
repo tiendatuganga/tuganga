@@ -1,4 +1,11 @@
-export type ProductStatus = "NEW" | "SECOND_LIFE" | "LIMITED" | "FEATURED" | "SALE";
+export type ProductCategory =
+  | "Hogar"
+  | "Electrónica"
+  | "Salud y Cuidado Personal"
+  | "Belleza"
+  | "Accesorios"
+  | "Herramientas";
+export type ProductCondition = "Nuevo" | "Como nuevo" | "Reacondicionado";
 export type ProductAvailability = "AVAILABLE" | "RESERVED" | "SOLD";
 export type ExternalChannel = "WALLAPOP" | "VINTED" | "WHATSAPP";
 
@@ -16,31 +23,29 @@ export interface Product {
   compareAtPrice?: number;
   images: ProductImage[];
   featuredImage?: ProductImage;
-  category: string;
+  category: ProductCategory | null;
   subcategory?: string;
   brand?: string;
   shortDescription?: string;
   features?: string[];
-  status: ProductStatus[];
   tags: string[];
   inventory: number;
   availability?: ProductAvailability;
   externalChannel?: ExternalChannel;
   externalUrl?: string;
   whatsappEnabled: boolean;
-  condition?: string;
+  condition: ProductCondition | null;
   reviewed?: boolean;
   location?: string;
   delivery?: string;
   featured: boolean;
-  secondLife: boolean;
   order?: number;
   createdAt: string;
 }
 
 export interface Category {
   id: string;
-  title: string;
+  title: ProductCategory;
   slug: string;
   description: string;
   image: string;

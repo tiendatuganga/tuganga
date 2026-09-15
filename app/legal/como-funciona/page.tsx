@@ -67,11 +67,12 @@ export default function ComoFuncionaPage() {
 
       <LegalSection id="estados" title="Estados y etiquetas">
         <p>
-          Las fichas pueden mostrar etiquetas como <strong>Nuevo</strong>, <strong>Segunda vuelta</strong>,{" "}
-          <strong>Revisado</strong>, <strong>Oferta</strong>, <strong>Últimas unidades</strong>,{" "}
+          El estado físico de cada producto es <strong>Nuevo</strong>, <strong>Como nuevo</strong> o{" "}
+          <strong>Reacondicionado</strong>. Por separado, las fichas pueden mostrar información comercial como{" "}
+          <strong>Oferta</strong>, <strong>Destacado</strong>, <strong>Últimas unidades</strong>,{" "}
           <strong>Disponible</strong>, <strong>Reservado</strong> o <strong>Vendido</strong>.
         </p>
-        <p>Sobre la etiqueta «Revisado», conviene precisar su alcance exacto:</p>
+        <p>Sobre cualquier indicación de revisión, conviene precisar su alcance exacto:</p>
         <ul>
           <li>
             Significa únicamente lo que realmente se haya comprobado en cada caso, tal como se indique en la ficha.

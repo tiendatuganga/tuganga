@@ -39,7 +39,6 @@ export const PRODUCTS_QUERY = `#graphql
         }
         metafields(
           identifiers: [
-            { namespace: "custom", key: "product_status" }
             { namespace: "custom", key: "featured" }
             { namespace: "custom", key: "home_section" }
             { namespace: "custom", key: "availability" }
@@ -104,7 +103,6 @@ export const PRODUCT_BY_HANDLE_QUERY = `#graphql
       }
       metafields(
         identifiers: [
-          { namespace: "custom", key: "product_status" }
           { namespace: "custom", key: "featured" }
           { namespace: "custom", key: "home_section" }
           { namespace: "custom", key: "availability" }

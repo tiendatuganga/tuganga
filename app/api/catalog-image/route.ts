@@ -3,7 +3,7 @@ import { NextResponse, type NextRequest } from "next/server";
 const DRIVE_ID_PATTERN = /^[\w-]+$/;
 
 function fallback(request: NextRequest) {
-  return NextResponse.redirect(new URL("/categories/gadgets.svg", request.url));
+  return NextResponse.redirect(new URL("/categories/hogar.svg", request.url));
 }
 
 export async function GET(request: NextRequest) {

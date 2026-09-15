@@ -1,4 +1,12 @@
-import type { Category, ExternalChannel, Product, ProductAvailability, ProductStatus } from "@/types";
+import type {
+  Category,
+  ExternalChannel,
+  Product,
+  ProductAvailability,
+  ProductCategory,
+  ProductCondition,
+} from "@/types";
+import { normalizeText } from "@/lib/utils";
 
 interface ShopifyMoney {
   amount: string;
@@ -32,9 +40,19 @@ export interface ShopifyCollectionNode {
   image?: { url: string; altText: string | null } | null;
 }
 
-const VALID_STATUSES: ProductStatus[] = ["NEW", "SECOND_LIFE", "LIMITED", "FEATURED", "SALE"];
 const VALID_AVAILABILITY: ProductAvailability[] = ["AVAILABLE", "RESERVED", "SOLD"];
 const VALID_CHANNELS: ExternalChannel[] = ["WALLAPOP", "VINTED", "WHATSAPP"];
+const VALID_CATEGORIES: Record<string, ProductCategory> = {
+  hogar: "Hogar",
+  electronica: "Electrónica",
+  tecnologia: "Electrónica",
+  salud: "Salud y Cuidado Personal",
+  "salud y cuidado personal": "Salud y Cuidado Personal",
+  belleza: "Belleza",
+  accesorios: "Accesorios",
+  herramientas: "Herramientas",
+  ocio: "Herramientas",
+};
 
 function readMetafield(metafields: (ShopifyMetafield | null)[] | undefined, key: string) {
   return metafields?.find((field) => field?.key === key)?.value;
@@ -47,18 +65,20 @@ export function mapShopifyProduct(node: ShopifyProductNode): Product {
     ? Number(node.compareAtPriceRange.minVariantPrice.amount)
     : undefined;
 
-  const statusMetafield = readMetafield(node.metafields, "product_status");
-  const status = statusMetafield
-    ?.split(",")
-    .map((value) => value.trim().toUpperCase())
-    .filter((value): value is ProductStatus => VALID_STATUSES.includes(value as ProductStatus)) ?? [];
-
   const featuredMetafield = readMetafield(node.metafields, "featured");
   const availabilityMetafield = readMetafield(node.metafields, "availability")?.toUpperCase();
   const externalChannelMetafield = readMetafield(node.metafields, "sales_channel")?.toUpperCase();
   const externalUrl = readMetafield(node.metafields, "external_url");
   const whatsappEnabled = readMetafield(node.metafields, "whatsapp_enabled") === "true";
-  const condition = readMetafield(node.metafields, "condition");
+  const rawCondition = normalizeText(readMetafield(node.metafields, "condition") ?? "");
+  const condition: ProductCondition | null =
+    rawCondition === "nuevo"
+      ? "Nuevo"
+      : rawCondition === "como nuevo"
+        ? "Como nuevo"
+        : rawCondition === "reacondicionado"
+          ? "Reacondicionado"
+          : null;
   const reviewedMetafield = readMetafield(node.metafields, "reviewed");
   const location = readMetafield(node.metafields, "location");
   const delivery = readMetafield(node.metafields, "delivery");
@@ -79,29 +99,31 @@ export function mapShopifyProduct(node: ShopifyProductNode): Product {
     price,
     compareAtPrice: compareAtPrice && compareAtPrice > price ? compareAtPrice : undefined,
     images: node.images.nodes.map((image) => ({ url: image.url, alt: image.altText ?? node.title })),
-    category: node.collections?.nodes[0]?.handle ?? "",
-    status,
+    category: VALID_CATEGORIES[normalizeText(node.collections?.nodes[0]?.handle ?? "")] ?? null,
     tags: node.tags,
     inventory: node.totalInventory ?? 0,
     availability,
     externalChannel,
     externalUrl: externalUrl || undefined,
     whatsappEnabled,
-    condition: condition || undefined,
+    condition,
     reviewed: reviewedMetafield ? reviewedMetafield === "true" : undefined,
     location: location || undefined,
     delivery: delivery || undefined,
-    featured: featuredMetafield === "true" || status.includes("FEATURED"),
-    secondLife: status.includes("SECOND_LIFE"),
+    featured: featuredMetafield === "true",
     createdAt: new Date().toISOString(),
   };
 }
 
 /** Convierte una Collection de Shopify al tipo `Category` interno de la web. */
-export function mapShopifyCollection(node: ShopifyCollectionNode): Category {
+export function mapShopifyCollection(node: ShopifyCollectionNode): Category | null {
+  const title =
+    VALID_CATEGORIES[normalizeText(node.handle)] ?? VALID_CATEGORIES[normalizeText(node.title)];
+  if (!title) return null;
+
   return {
     id: node.id,
-    title: node.title,
+    title,
     slug: node.handle,
     description: node.description,
     image: node.image?.url ?? "",
