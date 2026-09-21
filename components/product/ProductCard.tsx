@@ -3,13 +3,14 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { Product } from "@/types";
+import { getProductDisplayImages } from "@/lib/product-images";
 import { ProductBadge } from "@/components/product/ProductBadge";
 import { ProductPrice } from "@/components/product/ProductPrice";
 import { FavoriteToggle } from "@/components/product/FavoriteToggle";
 import { ArrowIcon } from "@/components/ui/icons";
 
 export function ProductCard({ product }: { product: Product }) {
-  const [primaryImage, secondaryImage] = product.images;
+  const [primaryImage, secondaryImage] = getProductDisplayImages(product);
 
   return (
     <article className="group relative flex h-full flex-col">

@@ -5,6 +5,7 @@ import { productService } from "@/lib/services/product-service";
 import { getExternalChannelName } from "@/lib/external-product";
 import { formatPrice, normalizeText } from "@/lib/utils";
 import type { Product } from "@/types";
+import { getProductPrimaryImage } from "@/lib/product-images";
 import styles from "./salud.module.css";
 
 export const metadata: Metadata = {
@@ -62,12 +63,13 @@ function getHealthSectionId(product: Product): HealthSectionId {
 
 function HealthProductCard({ product }: { product: Product }) {
   const channel = product.externalChannel ? getExternalChannelName(product.externalChannel) : null;
+  const primaryImage = getProductPrimaryImage(product);
 
   return (
     <article className={styles.card}>
       <div className={styles.cardMedia}>
         {product.reviewed && <span className={styles.reviewed}>✓ revisado</span>}
-        <Image src={product.images[0].url} alt={product.images[0].alt} fill sizes="(min-width: 1100px) 360px, (min-width: 700px) 45vw, 100vw" />
+        <Image src={primaryImage.url} alt={primaryImage.alt} fill sizes="(min-width: 1100px) 360px, (min-width: 700px) 45vw, 100vw" />
       </div>
       <div className={styles.cardBody}>
         <div className={styles.model}>{product.brand ?? product.id}</div>

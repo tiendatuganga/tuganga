@@ -3,6 +3,29 @@ const GOOGLE_SHEET_CSV_URL =
 
 export type SheetRow = Record<string, string>;
 
+const NUMBERED_PHOTO_HEADER = /^Foto\s+([1-9]\d*)$/i;
+
+function splitLegacyPhotos(value: string | undefined): string[] {
+  return value?.split(/[|\r\n]+/).map((url) => url.trim()).filter(Boolean) ?? [];
+}
+
+/**
+ * Lee primero las columnas Foto N en orden numérico. Mientras dura la migración,
+ * recurre a Fotos si la fila todavía no tiene ninguna Foto N completada.
+ */
+export function extractPhotoUrls(row: SheetRow): string[] {
+  const numberedPhotos = Object.entries(row)
+    .flatMap(([header, value]) => {
+      const match = header.trim().match(NUMBERED_PHOTO_HEADER);
+      return match ? [{ position: Number(match[1]), value: value.trim() }] : [];
+    })
+    .sort((left, right) => left.position - right.position)
+    .map(({ value }) => value)
+    .filter(Boolean);
+
+  return numberedPhotos.length > 0 ? numberedPhotos : splitLegacyPhotos(row.Fotos);
+}
+
 /** Parser CSV con soporte para comillas, comas y saltos de línea dentro de campos. */
 export function parseCsv(csv: string): string[][] {
   const rows: string[][] = [];

@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/Button";
 import { ExternalProductCTA } from "@/components/product/ExternalProductCTA";
 import { CloseIcon, HeartIcon, TrashIcon } from "@/components/ui/icons";
 import { formatPrice } from "@/lib/utils";
+import { getProductPrimaryImage } from "@/lib/product-images";
 
 export function FavoritesDrawer() {
   const { products, isDrawerOpen, closeDrawer, removeFavorite } = useFavorites();
@@ -60,46 +61,50 @@ export function FavoritesDrawer() {
               </div>
             ) : (
               <div className="flex-1 divide-y divide-tg-lavender-soft overflow-y-auto px-6">
-                {products.map((product) => (
-                  <div key={product.id} className="flex items-center gap-4 py-4">
-                    <Link
-                      href={`/producto/${product.slug}`}
-                      onClick={closeDrawer}
-                      className="relative block h-16 w-16 shrink-0 overflow-hidden rounded-xl bg-tg-offwhite"
-                    >
-                      <Image
-                        src={product.images[0].url}
-                        alt={product.images[0].alt}
-                        fill
-                        className="object-cover"
-                        sizes="64px"
-                      />
-                    </Link>
-                    <div className="min-w-0 flex-1">
+                {products.map((product) => {
+                  const primaryImage = getProductPrimaryImage(product);
+
+                  return (
+                    <div key={product.id} className="flex items-center gap-4 py-4">
                       <Link
                         href={`/producto/${product.slug}`}
                         onClick={closeDrawer}
-                        className="block truncate text-sm font-medium text-tg-ink transition-colors hover:text-tg-primary"
+                        className="relative block h-16 w-16 shrink-0 overflow-hidden rounded-xl bg-tg-offwhite"
                       >
-                        {product.title}
+                        <Image
+                          src={primaryImage.url}
+                          alt={primaryImage.alt}
+                          fill
+                          className="object-cover"
+                          sizes="64px"
+                        />
                       </Link>
-                      <p className="mt-0.5 text-sm font-semibold text-tg-ink">
-                        {formatPrice(product.price)}
-                      </p>
-                      <div className="mt-2">
-                        <ExternalProductCTA product={product} variant="compact" />
+                      <div className="min-w-0 flex-1">
+                        <Link
+                          href={`/producto/${product.slug}`}
+                          onClick={closeDrawer}
+                          className="block truncate text-sm font-medium text-tg-ink transition-colors hover:text-tg-primary"
+                        >
+                          {product.title}
+                        </Link>
+                        <p className="mt-0.5 text-sm font-semibold text-tg-ink">
+                          {formatPrice(product.price)}
+                        </p>
+                        <div className="mt-2">
+                          <ExternalProductCTA product={product} variant="compact" />
+                        </div>
                       </div>
+                      <button
+                        type="button"
+                        onClick={() => void removeFavorite(product.id)}
+                        aria-label={`Quitar ${product.title} de favoritos`}
+                        className="shrink-0 rounded-full p-2 text-tg-ink/50 transition-colors hover:bg-tg-lavender-soft hover:text-tg-primary"
+                      >
+                        <TrashIcon className="h-4 w-4" />
+                      </button>
                     </div>
-                    <button
-                      type="button"
-                      onClick={() => void removeFavorite(product.id)}
-                      aria-label={`Quitar ${product.title} de favoritos`}
-                      className="shrink-0 rounded-full p-2 text-tg-ink/50 transition-colors hover:bg-tg-lavender-soft hover:text-tg-primary"
-                    >
-                      <TrashIcon className="h-4 w-4" />
-                    </button>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
             )}
           </motion.aside>

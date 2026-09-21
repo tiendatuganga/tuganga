@@ -8,6 +8,7 @@ import { searchService } from "@/lib/services/search-service";
 import { formatPrice } from "@/lib/utils";
 import { CloseIcon, SearchIcon } from "@/components/ui/icons";
 import type { Product } from "@/types";
+import { getProductPrimaryImage } from "@/lib/product-images";
 
 interface SearchOverlayProps {
   isOpen: boolean;
@@ -76,30 +77,34 @@ export function SearchOverlay({ isOpen, onClose, products }: SearchOverlayProps)
                 <p className="text-sm text-tg-ink/45">No hemos encontrado resultados para &ldquo;{query}&rdquo;.</p>
               ) : (
                 <ul className="divide-y divide-tg-lavender-soft">
-                  {results.map((product) => (
-                    <li key={product.id}>
-                      <Link
-                        href={`/producto/${product.slug}`}
-                        onClick={handleClose}
-                        className="flex items-center gap-4 py-4"
-                      >
-                        <div className="relative h-16 w-16 shrink-0 overflow-hidden rounded-xl bg-tg-offwhite">
-                          <Image
-                            src={product.images[0].url}
-                            alt={product.images[0].alt}
-                            fill
-                            className="object-cover"
-                            sizes="64px"
-                          />
-                        </div>
-                        <div className="flex-1">
-                          <p className="text-sm font-medium text-tg-ink">{product.title}</p>
-                          <p className="text-xs text-tg-ink/45">{product.category ?? "Sin categoría"}</p>
-                        </div>
-                        <span className="text-sm font-semibold text-tg-ink">{formatPrice(product.price)}</span>
-                      </Link>
-                    </li>
-                  ))}
+                  {results.map((product) => {
+                    const primaryImage = getProductPrimaryImage(product);
+
+                    return (
+                      <li key={product.id}>
+                        <Link
+                          href={`/producto/${product.slug}`}
+                          onClick={handleClose}
+                          className="flex items-center gap-4 py-4"
+                        >
+                          <div className="relative h-16 w-16 shrink-0 overflow-hidden rounded-xl bg-tg-offwhite">
+                            <Image
+                              src={primaryImage.url}
+                              alt={primaryImage.alt}
+                              fill
+                              className="object-cover"
+                              sizes="64px"
+                            />
+                          </div>
+                          <div className="flex-1">
+                            <p className="text-sm font-medium text-tg-ink">{product.title}</p>
+                            <p className="text-xs text-tg-ink/45">{product.category ?? "Sin categoría"}</p>
+                          </div>
+                          <span className="text-sm font-semibold text-tg-ink">{formatPrice(product.price)}</span>
+                        </Link>
+                      </li>
+                    );
+                  })}
                 </ul>
               )}
             </div>

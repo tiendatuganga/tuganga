@@ -39,7 +39,6 @@ export interface Product {
   location?: string;
   delivery?: string;
   featured: boolean;
-  order?: number;
   createdAt: string;
 }
 

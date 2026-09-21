@@ -6,8 +6,9 @@ import type {
   ProductCondition,
   ProductImage,
 } from "@/types";
+import { getProductFallbackImage } from "@/lib/product-images";
 import { normalizeText } from "@/lib/utils";
-import type { SheetRow } from "@/lib/catalog/google-sheet";
+import { extractPhotoUrls, type SheetRow } from "@/lib/catalog/google-sheet";
 
 const CATEGORY_ALIASES: Record<string, ProductCategory> = {
   hogar: "Hogar",
@@ -21,19 +22,9 @@ const CATEGORY_ALIASES: Record<string, ProductCategory> = {
   ocio: "Herramientas",
 };
 
-const CATEGORY_PLACEHOLDERS: Record<ProductCategory, string> = {
-  Hogar: "/categories/hogar.svg",
-  Electrónica: "/categories/tecnologia.svg",
-  "Salud y Cuidado Personal": "/categories/salud.svg",
-  Belleza: "/categories/belleza.svg",
-  Accesorios: "/categories/accesorios.svg",
-  Herramientas: "/categories/ocio.svg",
-};
-
 export interface MappedSheetProduct {
   product: Product;
   published: boolean;
-  order: number | null;
 }
 
 function warn(row: SheetRow, message: string) {
@@ -103,12 +94,8 @@ function mapCategory(row: SheetRow): ProductCategory | null {
   return category ?? null;
 }
 
-function placeholderFor(category: ProductCategory | null) {
-  return category ? CATEGORY_PLACEHOLDERS[category] : "/categories/hogar.svg";
-}
-
-function mapImages(row: SheetRow, title: string, category: ProductCategory | null): ProductImage[] {
-  const rawImages = row.Fotos?.split("|").map((value) => value.trim()).filter(Boolean) ?? [];
+function mapImages(row: SheetRow, title: string): ProductImage[] {
+  const rawImages = extractPhotoUrls(row);
   const images = rawImages.flatMap((value) => {
     const normalized = normalizeGoogleDriveImageUrl(value);
     if (!normalized) {
@@ -118,7 +105,7 @@ function mapImages(row: SheetRow, title: string, category: ProductCategory | nul
     return [{ url: normalized, alt: title }];
   });
 
-  return images.length > 0 ? images : [{ url: placeholderFor(category), alt: title }];
+  return images;
 }
 
 function mapCondition(row: SheetRow): ProductCondition | null {
@@ -187,7 +174,6 @@ export function mapSheetRow(row: SheetRow): MappedSheetProduct | null {
       ? rawCompareAtPrice
       : undefined;
   const inventory = parseInteger(row.Stock, row, "stock") ?? 0;
-  const order = parseInteger(row.Orden, row, "orden");
   const condition = mapCondition(row);
   const availability: ProductAvailability = inventory === 0 ? "SOLD" : "AVAILABLE";
   const externalChannels = mapExternalChannels(row["Canal de venta"], row);
@@ -205,12 +191,12 @@ export function mapSheetRow(row: SheetRow): MappedSheetProduct | null {
   const features = [row["Característica 1"], row["Característica 2"]]
     .map((value) => value?.trim())
     .filter((value): value is string => Boolean(value));
-  const images = mapImages(row, title, category);
+  const images = mapImages(row, title);
   const featured = isYes(row.Destacado);
+  const fallbackImage = getProductFallbackImage({ title, category });
 
   return {
     published: isYes(row.Publicado),
-    order,
     product: {
       id,
       slug,
@@ -225,7 +211,7 @@ export function mapSheetRow(row: SheetRow): MappedSheetProduct | null {
       price,
       compareAtPrice,
       images,
-      featuredImage: images[0],
+      featuredImage: images[0] ?? fallbackImage,
       tags: [row.Marca, category, row["Subcategoría"]]
         .map((value) => value?.trim())
         .filter((value): value is string => Boolean(value)),
@@ -237,7 +223,6 @@ export function mapSheetRow(row: SheetRow): MappedSheetProduct | null {
       condition,
       reviewed: condition === "Reacondicionado",
       featured,
-      order: order ?? undefined,
       createdAt: "1970-01-01T00:00:00.000Z",
     },
   };

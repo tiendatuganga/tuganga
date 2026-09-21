@@ -18,6 +18,7 @@ import {
   type AvailabilityTone,
 } from "@/lib/external-product";
 import { cn } from "@/lib/utils";
+import { getProductDisplayImages } from "@/lib/product-images";
 
 const AVAILABILITY_STYLES: Record<AvailabilityTone, string> = {
   available: "text-emerald-700",
@@ -46,6 +47,7 @@ export async function generateMetadata({
   const { slug } = await params;
   const product = await productService.getProductBySlug(slug);
   if (!product) return {};
+  const displayImages = getProductDisplayImages(product);
 
   return {
     title: product.title,
@@ -53,7 +55,7 @@ export async function generateMetadata({
     openGraph: {
       title: product.title,
       description: product.description,
-      images: product.images.map((image) => ({ url: image.url, alt: image.alt })),
+      images: displayImages.map((image) => ({ url: image.url, alt: image.alt })),
     },
   };
 }
@@ -62,6 +64,7 @@ export default async function ProductoPage({ params }: { params: Promise<{ slug:
   const { slug } = await params;
   const product = await productService.getProductBySlug(slug);
   if (!product) notFound();
+  const displayImages = getProductDisplayImages(product);
 
   const [related, category] = await Promise.all([
     productService.getRelatedProducts(product, 4),
@@ -88,7 +91,7 @@ export default async function ProductoPage({ params }: { params: Promise<{ slug:
   return (
     <div className="mx-auto max-w-7xl px-5 pb-28 pt-12 sm:px-8 sm:pt-16 lg:pb-16">
       <div className="grid gap-10 lg:grid-cols-2 lg:gap-14">
-        <ProductGallery images={product.images} title={product.title} />
+        <ProductGallery images={displayImages} title={product.title} />
 
         <div className="flex flex-col">
           {category ? (

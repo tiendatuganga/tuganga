@@ -19,7 +19,6 @@ export async function getCatalogProducts(): Promise<Product[]> {
 
     return mapped
       .filter(({ published, product }) => published && product.availability !== "SOLD")
-      .sort((left, right) => (left.order ?? Number.POSITIVE_INFINITY) - (right.order ?? Number.POSITIVE_INFINITY))
       .map(({ product }) => product);
   } catch (error) {
     console.error(
