@@ -79,7 +79,7 @@ export function csvToRows(csv: string): SheetRow[] {
 
 export async function fetchGoogleSheetRows(): Promise<SheetRow[]> {
   const response = await fetch(GOOGLE_SHEET_CSV_URL, {
-    next: { revalidate: 60, tags: ["google-sheet-catalog"] },
+    cache: "no-store",
   });
 
   if (!response.ok) {

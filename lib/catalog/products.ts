@@ -1,5 +1,6 @@
 import "server-only";
 
+import { unstable_rethrow } from "next/navigation";
 import { mockProducts } from "@/data/mock/products";
 import { fetchGoogleSheetRows } from "@/lib/catalog/google-sheet";
 import { mapSheetRow } from "@/lib/catalog/product-mapper";
@@ -21,6 +22,7 @@ export async function getCatalogProducts(): Promise<Product[]> {
       .filter(({ published, product }) => published && product.availability !== "SOLD")
       .map(({ product }) => product);
   } catch (error) {
+    unstable_rethrow(error);
     console.error(
       "[catálogo Google Sheets] no se pudo cargar el catálogo",
       error instanceof Error ? error.message : "error desconocido"
