@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 480" width="480" height="480" role="img" aria-hidden="true">
+  <defs>
+    <linearGradient id="grad-gadget-cocina-1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#592570" />
+      <stop offset="100%" stop-color="#492169" />
+    </linearGradient>
+  </defs>
+  <rect width="480" height="480" fill="#FAF8FB" />
+  <g transform="translate(240,240) rotate(0)">
+    <path d="M 168.7652151489258,0 Q 141.60212376594544,93.62160987318701 106.79243814468387,184.96992873074902 Q -14.020685148239103,159.68641792023516 -79.69829818725583,138.0415017371017 Q -129.60630472183226,77.7724518420616 -158.62574237823486,1.94260507665878e-14 Q -120.47830622076992,-82.17058365618826 -103.03252945661553,-178.4575758511949 Q -10.99532455801976,-192.54042352318928 105.00687744140609,-181.87724687267388 Q 142.3712693023681,-112.26592331731838 168.7652151489258,0 Z" fill="url(#grad-gadget-cocina-1)" />
+  </g>
+  <circle cx="393.6" cy="240" r="24" fill="#F1EAF4" opacity="0.55" />
+  <g transform="translate(240,240)" stroke="#FFFFFF" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity="0.92">
+    <path d="M-24,30 L14,-28 A8,8 0 0 1 26,-16 L-16,26 Z"/><line x1="-24" y1="30" x2="-32" y2="38"/>
+  </g>
+</svg>

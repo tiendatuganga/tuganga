@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" width="640" height="640" role="img" aria-hidden="true">
+  <defs>
+    <linearGradient id="grad-cat-mascotas" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#592570" />
+      <stop offset="100%" stop-color="#492169" />
+    </linearGradient>
+  </defs>
+  <rect width="640" height="640" fill="#FAF8FB" />
+  <g transform="translate(320,320) rotate(8)">
+    <path d="M 252.9538684082031,0 Q 158.06691955566407,121.02533660744925 116.04823547363283,201.0014399690489 Q 1.6706542968750373,176.64429689330575 -139.063823852539,240.8656084074064 Q -254.5795041942596,135.4266220099471 -282.8634143066406,3.4640777492651906e-14 Q -161.80096496582036,-92.0386136383374 -108.62473693847666,-188.14356333624514 Q -2.6554544448854074,-188.10016457144886 142.28373466491678,-246.44265753028543 Q 215.39338191986073,-93.57046054004506 252.9538684082031,0 Z" fill="url(#grad-cat-mascotas)" />
+  </g>
+  <circle cx="290.20159307599596" cy="522.6205689084686" r="32" fill="#F1EAF4" opacity="0.55" />
+  <g transform="translate(320,320)" stroke="#FFFFFF" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity="0.92">
+    <circle cx="0" cy="8" r="18"/><circle cx="-20" cy="-14" r="9"/><circle cx="0" cy="-24" r="9"/><circle cx="20" cy="-14" r="9"/>
+  </g>
+</svg>

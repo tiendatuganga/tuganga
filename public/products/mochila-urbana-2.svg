@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 480" width="480" height="480" role="img" aria-hidden="true">
+  <defs>
+    <linearGradient id="grad-mochila-urbana-2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F1EAF4" />
+      <stop offset="100%" stop-color="#C6AECA" />
+    </linearGradient>
+  </defs>
+  <rect width="480" height="480" fill="#FAF8FB" />
+  <g transform="translate(240,240) rotate(22)">
+    <path d="M 171.31944374084472,0 Q 167.3858780193329,74.40196316335025 104.39115812301637,180.81078973002082 Q -5.4394613742828035,191.5218698632842 -88.27430145263666,152.89557511861793 Q -124.92948348999022,69.31398476389882 -188.46085876464844,2.3079798745068813e-14 Q -161.09420516967776,-102.0769768084354 -97.81087371826179,-169.41340281273264 Q 21.459105491638084,-199.22941838406675 97.59180633544909,-169.03396697542038 Q 130.0447330284118,-82.1079804206936 171.31944374084472,0 Z" fill="url(#grad-mochila-urbana-2)" />
+  </g>
+  <circle cx="86.40601706578374" cy="238.64043889299396" r="24" fill="#71297A" opacity="0.55" />
+  <g transform="translate(240,240)" stroke="#3D1B5C" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity="0.92">
+    <rect x="-22" y="-18" width="44" height="52" rx="16"/><path d="M-12,-18 L-12,-30 A12,12 0 0 1 12,-30 L12,-18"/><rect x="-10" y="-2" width="20" height="16" rx="4"/>
+  </g>
+</svg>

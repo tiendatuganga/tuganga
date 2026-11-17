@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" width="640" height="640" role="img" aria-hidden="true">
+  <defs>
+    <linearGradient id="grad-cat-hogar" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#592570" />
+      <stop offset="100%" stop-color="#492169" />
+    </linearGradient>
+  </defs>
+  <rect width="640" height="640" fill="#FAF8FB" />
+  <g transform="translate(320,320) rotate(8)">
+    <path d="M 255.41293823242185,0 Q 207.61276611328125,133.57387389668006 127.0206658935547,220.00624693886792 Q 4.192491149902386,214.39665041609868 -119.74936462402337,207.41198370289973 Q -198.6658392333984,76.97466708338348 -251.66755249023436,3.08203862606414e-14 Q -145.3235758209229,-68.21366282180725 -108.16589294433604,-187.34882222564576 Q 43.59743709564195,-168.4579816405285 124.4728643035887,-215.59332513744246 Q 160.9923214340209,-85.38747410741752 255.41293823242185,0 Z" fill="url(#grad-cat-hogar)" />
+  </g>
+  <circle cx="290.20159307599596" cy="522.6205689084686" r="32" fill="#F1EAF4" opacity="0.55" />
+  <g transform="translate(320,320)" stroke="#FFFFFF" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity="0.92">
+    <path d="M-30,4 L0,-28 L30,4"/><path d="M-20,4 L-20,32 L20,32 L20,4"/><rect x="-6" y="14" width="12" height="18"/>
+  </g>
+</svg>

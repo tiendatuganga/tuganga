@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 480" width="480" height="480" role="img" aria-hidden="true">
+  <defs>
+    <linearGradient id="grad-accesorio-mascotas-1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#71297A" />
+      <stop offset="100%" stop-color="#3D1B5C" />
+    </linearGradient>
+  </defs>
+  <rect width="480" height="480" fill="#FAF8FB" />
+  <g transform="translate(240,240) rotate(0)">
+    <path d="M 192.81794036865233,0 Q 168.0279148864746,87.37874955938643 99.07455551147464,171.60216388317716 Q 40.304840469360386,145.25020356100194 -80.43116867065426,139.31087064971538 Q -140.57903039932248,55.65139718169975 -159.90713275909422,1.958297582942556e-14 Q -132.22441795349124,-76.7199323953402 -81.86986782073981,-141.80277067446949 Q -10.383133649826146,-160.1612785352102 86.64140264511096,-150.06731142036497 Q 132.16001360893242,-65.65488831516296 192.81794036865233,0 Z" fill="url(#grad-accesorio-mascotas-1)" />
+  </g>
+  <circle cx="393.6" cy="240" r="24" fill="#F1EAF4" opacity="0.55" />
+  <g transform="translate(240,240)" stroke="#FFFFFF" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity="0.92">
+    <circle cx="0" cy="10" r="18"/><circle cx="-20" cy="-12" r="9"/><circle cx="0" cy="-22" r="9"/><circle cx="20" cy="-12" r="9"/>
+  </g>
+</svg>

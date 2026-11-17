@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 480" width="480" height="480" role="img" aria-hidden="true">
+  <defs>
+    <linearGradient id="grad-lampara-luna-1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F1EAF4" />
+      <stop offset="100%" stop-color="#C6AECA" />
+    </linearGradient>
+  </defs>
+  <rect width="480" height="480" fill="#FAF8FB" />
+  <g transform="translate(240,240) rotate(0)">
+    <path d="M 194.57088111877442,0 Q 135.77218311309815,40.766992734818125 84.54527389526369,146.43670992642336 Q 21.601483333110835,145.367567173325 -87.64416086196896,151.80413959967 Q -160.32881443977354,90.36483005755596 -192.67057937622067,2.3595340832295468e-14 Q -138.0803293991089,-107.927294280871 -103.44123298645027,-179.1654711301014 Q 20.606849384307758,-178.4552878705303 88.86483375549304,-153.918407070676 Q 148.46498382568353,-101.65231609942492 194.57088111877442,0 Z" fill="url(#grad-lampara-luna-1)" />
+  </g>
+  <circle cx="393.6" cy="240" r="24" fill="#71297A" opacity="0.55" />
+  <g transform="translate(240,240)" stroke="#3D1B5C" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity="0.92">
+    <path d="M8,-30 A30,30 0 1 0 8,30 A22,22 0 1 1 8,-30 Z"/><line x1="0" y1="34" x2="0" y2="46"/><line x1="-14" y1="46" x2="14" y2="46"/>
+  </g>
+</svg>

@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 480" width="480" height="480" role="img" aria-hidden="true">
+  <defs>
+    <linearGradient id="grad-difusor-aura-1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#C6AECA" />
+      <stop offset="100%" stop-color="#71297A" />
+    </linearGradient>
+  </defs>
+  <rect width="480" height="480" fill="#FAF8FB" />
+  <g transform="translate(240,240) rotate(0)">
+    <path d="M 191.31595825195313,0 Q 160.21564109802247,113.45478928089439 97.32707702636722,168.57544236183762 Q -30.562645339965773,156.56983717091643 -106.20562316894525,183.95353537812758 Q -103.96361492156979,118.65038219101693 -163.15305541992188,1.9980486709111805e-14 Q -135.03128674507144,-92.26964850042285 -92.02699853897101,-159.39543713756447 Q 11.183313131332309,-159.71769963131797 87.66733085632313,-151.8442712071027 Q 170.24874904632563,-66.33486143362948 191.31595825195313,0 Z" fill="url(#grad-difusor-aura-1)" />
+  </g>
+  <circle cx="393.6" cy="240" r="24" fill="#F1EAF4" opacity="0.55" />
+  <g transform="translate(240,240)" stroke="#FFFFFF" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity="0.92">
+    <path d="M-14,10 L14,10 L20,38 A20,14 0 0 1 -20,38 Z"/><path d="M-10,10 L-10,-6 L10,-6 L10,10"/><path d="M-4,-26 C-4,-20 4,-20 4,-26"/><path d="M-14,-20 C-14,-14 -6,-14 -6,-20"/><path d="M6,-20 C6,-14 14,-14 14,-20"/>
+  </g>
+</svg>

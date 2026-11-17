@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" width="640" height="640" role="img" aria-hidden="true">
+  <defs>
+    <linearGradient id="grad-cat-tecnologia" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#71297A" />
+      <stop offset="100%" stop-color="#3D1B5C" />
+    </linearGradient>
+  </defs>
+  <rect width="640" height="640" fill="#FAF8FB" />
+  <g transform="translate(320,320) rotate(8)">
+    <path d="M 235.84531738281248,0 Q 155.53272880554198,79.97832132191314 105.05876708984377,181.96712238015442 Q -24.02447865903374,143.72252631129612 -105.50708353877063,182.74362924756477 Q -152.50469922959803,91.2113409909699 -244.56441971778867,2.995050337927197e-14 Q -209.58053947925572,-135.20777260162095 -137.33943267822275,-237.87887528136693 Q -19.115164184570435,-214.88104878076652 109.03010040283188,-188.84567345204107 Q 211.20431045532217,-132.56275371820803 235.84531738281248,0 Z" fill="url(#grad-cat-tecnologia)" />
+  </g>
+  <circle cx="290.20159307599596" cy="522.6205689084686" r="32" fill="#F1EAF4" opacity="0.55" />
+  <g transform="translate(320,320)" stroke="#FFFFFF" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity="0.92">
+    <rect x="-22" y="-22" width="44" height="44" rx="8"/><rect x="-8" y="-8" width="16" height="16" rx="2"/><line x1="-30" y1="-10" x2="-22" y2="-10"/><line x1="-30" y1="10" x2="-22" y2="10"/><line x1="22" y1="-10" x2="30" y2="-10"/><line x1="22" y1="10" x2="30" y2="10"/><line x1="-10" y1="-30" x2="-10" y2="-22"/><line x1="10" y1="-30" x2="10" y2="-22"/>
+  </g>
+</svg>

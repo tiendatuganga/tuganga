@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 480" width="480" height="480" role="img" aria-hidden="true">
+  <defs>
+    <linearGradient id="grad-cepillo-facial-1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#71297A" />
+      <stop offset="100%" stop-color="#3D1B5C" />
+    </linearGradient>
+  </defs>
+  <rect width="480" height="480" fill="#FAF8FB" />
+  <g transform="translate(240,240) rotate(0)">
+    <path d="M 189.6275518798828,0 Q 155.89065673828125,75.87771803812858 106.05971099853517,183.7008080855345 Q 3.564383697509796,159.56985667485057 -84.29788238525386,146.00821526172527 Q -101.13178155899044,51.69708324731773 -164.92962879180908,2.0198054198445015e-14 Q -152.84112241744998,-51.152990095637875 -97.49629222869882,-168.86853168968887 Q -33.21741971969615,-140.84994711386423 93.66424209594713,-162.23122616261236 Q 157.36477478027336,-105.35579138025638 189.6275518798828,0 Z" fill="url(#grad-cepillo-facial-1)" />
+  </g>
+  <circle cx="393.6" cy="240" r="24" fill="#F1EAF4" opacity="0.55" />
+  <g transform="translate(240,240)" stroke="#FFFFFF" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity="0.92">
+    <circle cx="0" cy="-6" r="24"/><line x1="0" y1="18" x2="0" y2="40"/><line x1="-10" y1="34" x2="10" y2="34"/>
+  </g>
+</svg>

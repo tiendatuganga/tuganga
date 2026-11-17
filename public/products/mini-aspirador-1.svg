@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 480" width="480" height="480" role="img" aria-hidden="true">
+  <defs>
+    <linearGradient id="grad-mini-aspirador-1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#592570" />
+      <stop offset="100%" stop-color="#492169" />
+    </linearGradient>
+  </defs>
+  <rect width="480" height="480" fill="#FAF8FB" />
+  <g transform="translate(240,240) rotate(0)">
+    <path d="M 213.37518676757813,0 Q 129.14136989593507,51.2948560664163 95.69253112792968,165.7443258184405 Q -26.744141256809204,153.06001551143444 -92.62762023925775,160.43574443858975 Q -143.02273509979247,72.67545125982224 -193.62341674804688,2.3712029756046962e-14 Q -162.1715222167969,-47.139813850730434 -83.94919006347662,-145.4042624441977 Q 5.6436874866484725,-148.00853302814926 85.56907007217396,-148.20997692142703 Q 120.94677861213678,-68.70269191759218 213.37518676757813,0 Z" fill="url(#grad-mini-aspirador-1)" />
+  </g>
+  <circle cx="393.6" cy="240" r="24" fill="#F1EAF4" opacity="0.55" />
+  <g transform="translate(240,240)" stroke="#FFFFFF" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity="0.92">
+    <rect x="-16" y="-30" width="32" height="44" rx="14"/><line x1="0" y1="14" x2="0" y2="34"/><line x1="-16" y1="34" x2="16" y2="34"/><circle cx="0" cy="-8" r="6"/>
+  </g>
+</svg>
